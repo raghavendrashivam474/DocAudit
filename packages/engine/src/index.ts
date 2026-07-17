@@ -1,9 +1,9 @@
-﻿// ─── Pipeline ─────────────────────────────────────────────────────────────────
-export { runPipeline } from "./pipeline/pipeline.js";
+﻿export { runPipeline } from "./pipeline/pipeline.js";
 export type { PipelineOptions } from "./pipeline/pipeline.js";
 
-// ─── Registry ─────────────────────────────────────────────────────────────────
 export { AnalyzerRegistryImpl } from "./registry/analyzerRegistry.js";
 
-// ─── Built-in Analyzers ──────────────────────────────────────────────────────
 export { PlaceholderAnalyzer } from "./analyzers/placeholderAnalyzer.js";
+export { StructureAnalyzer } from "./analyzers/structureAnalyzer.js";
+export { CompletenessAnalyzer } from "./analyzers/completenessAnalyzer.js";
+export { ClarityAnalyzer } from "./analyzers/clarityAnalyzer.js";
