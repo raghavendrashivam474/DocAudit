@@ -1,0 +1,10 @@
+# DocAudit ignore patterns for self-audit
+
+# Auto-generated changelogs
+CHANGELOG
+
+# Draft documents
+*.draft.md
+
+# Internal notes
+docs/internal/

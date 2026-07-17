@@ -1,0 +1,49 @@
+name: DocAudit Self-Audit
+
+on:
+  push:
+    branches: [main, master]
+    paths:
+      - "**.md"
+      - "**.txt"
+  pull_request:
+    paths:
+      - "**.md"
+      - "**.txt"
+
+jobs:
+  audit:
+    name: Audit Documentation
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Install pnpm
+        uses: pnpm/action-setup@v3
+        with:
+          version: 9
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22.x
+          cache: pnpm
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Build
+        run: pnpm turbo run build
+
+      - name: Audit docs
+        run: node apps/cli/dist/main.js analyze . --fail-on critical --output reports/audit.md
+
+      - name: Upload audit report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: docaudit-report
+          path: reports/audit.md
+          retention-days: 30
