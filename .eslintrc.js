@@ -19,6 +19,7 @@ module.exports = {
   },
   overrides: [
     {
+      // Type-aware rules for all source files
       files: ["packages/*/src/**/*.ts", "apps/*/src/**/*.ts"],
       parserOptions: {
         project: [
@@ -41,6 +42,24 @@ module.exports = {
       }
     },
     {
+      // CLI is a console application - console output is intentional
+      files: ["apps/cli/src/**/*.ts"],
+      rules: {
+        "no-console": "off"
+      }
+    },
+    {
+      // Renderers write to console by design
+      files: [
+        "packages/reporter/src/renderers/**/*.ts",
+        "packages/reporter/src/formatters/**/*.ts"
+      ],
+      rules: {
+        "no-console": "off"
+      }
+    },
+    {
+      // Test files - relax some rules
       files: ["**/*.test.ts"],
       rules: {
         "no-console": "off",

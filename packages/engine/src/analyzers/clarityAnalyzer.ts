@@ -12,7 +12,7 @@ export class ClarityAnalyzer implements IAnalyzer {
   readonly name = "clarity";
   readonly version = "0.1.0";
 
-  async analyze(context: AnalyzerContext): Promise<AnalyzerOutput> {
+  analyze(context: AnalyzerContext): Promise<AnalyzerOutput> {
     const issues: AnalysisIssue[] = [];
     const lines = context.document.rawContent.split(/\r?\n/);
 
@@ -54,6 +54,6 @@ export class ClarityAnalyzer implements IAnalyzer {
       }
     }
 
-    return { issues };
+    return Promise.resolve({ issues });
   }
 }

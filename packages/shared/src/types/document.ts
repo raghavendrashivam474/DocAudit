@@ -1,4 +1,3 @@
-import type { Severity } from "./analysis.js";
 
 // ─── Primitives ───────────────────────────────────────────────────────────────
 

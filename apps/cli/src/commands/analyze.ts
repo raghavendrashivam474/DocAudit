@@ -8,7 +8,6 @@ import {
   CompletenessAnalyzer,
   ClarityAnalyzer,
   discoverFiles,
-  aggregateResults,
   loadIgnorePatterns,
 } from "@docaudit/engine";
 import { formatJson, formatMarkdown, renderToConsoleV2 } from "@docaudit/reporter";

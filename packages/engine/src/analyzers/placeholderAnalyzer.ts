@@ -4,7 +4,7 @@ export class PlaceholderAnalyzer implements IAnalyzer {
   readonly name = "placeholder";
   readonly version = "0.1.0";
 
-  async analyze(_context: AnalyzerContext): Promise<AnalyzerOutput> {
-    return { issues: [] };
+  analyze(_context: AnalyzerContext): Promise<AnalyzerOutput> {
+    return Promise.resolve({ issues: [] });
   }
 }

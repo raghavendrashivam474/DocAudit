@@ -22,12 +22,12 @@ export class CompletenessAnalyzer implements IAnalyzer {
   readonly name = "completeness";
   readonly version = "0.1.0";
 
-  async analyze(context: AnalyzerContext): Promise<AnalyzerOutput> {
+  analyze(context: AnalyzerContext): Promise<AnalyzerOutput> {
     const issues: AnalysisIssue[] = [];
     const { document } = context;
 
     if (!isApiLikeDocument(context)) {
-      return { issues };
+      return Promise.resolve({ issues });
     }
 
     // ── Required sections ──────────────────────────────────────────────────
@@ -63,6 +63,6 @@ export class CompletenessAnalyzer implements IAnalyzer {
       });
     }
 
-    return { issues };
+    return Promise.resolve({ issues });
   }
 }

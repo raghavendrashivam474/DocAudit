@@ -72,9 +72,9 @@ describe("runPipeline", () => {
     const spyAnalyzer: IAnalyzer = {
       name: "spy",
       version: "0.0.1",
-      analyze: async (ctx: AnalyzerContext): Promise<AnalyzerOutput> => {
+      analyze: (ctx: AnalyzerContext): Promise<AnalyzerOutput> => {
         capturedDoc = ctx.document;
-        return { issues: [] };
+        return Promise.resolve({ issues: [] });
       },
     };
 

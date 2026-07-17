@@ -10,7 +10,7 @@ export class StructureAnalyzer implements IAnalyzer {
   readonly name = "structure";
   readonly version = "0.1.0";
 
-  async analyze(context: AnalyzerContext): Promise<AnalyzerOutput> {
+  analyze(context: AnalyzerContext): Promise<AnalyzerOutput> {
     const { headings } = context.document;
     const issues: AnalysisIssue[] = [];
 
@@ -26,7 +26,7 @@ export class StructureAnalyzer implements IAnalyzer {
         suggestion: "Add a top-level title (# Heading) and section headings.",
         ruleId: "structure.no-headings",
       });
-      return { issues };
+      return Promise.resolve({ issues });
     }
 
     // ── First heading should be H1 ─────────────────────────────────────────
@@ -95,6 +95,6 @@ export class StructureAnalyzer implements IAnalyzer {
       }
     }
 
-    return { issues };
+    return Promise.resolve({ issues });
   }
 }
