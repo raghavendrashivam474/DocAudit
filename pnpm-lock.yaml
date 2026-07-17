@@ -27,6 +27,37 @@ importers:
         specifier: ^5.4.0
         version: 5.9.3
 
+  apps/cli:
+    dependencies:
+      '@docaudit/config':
+        specifier: workspace:*
+        version: link:../../packages/config
+      '@docaudit/engine':
+        specifier: workspace:*
+        version: link:../../packages/engine
+      '@docaudit/reporter':
+        specifier: workspace:*
+        version: link:../../packages/reporter
+      '@docaudit/shared':
+        specifier: workspace:*
+        version: link:../../packages/shared
+    devDependencies:
+      '@types/node':
+        specifier: ^20.0.0
+        version: 20.19.43
+      '@typescript-eslint/eslint-plugin':
+        specifier: ^7.0.0
+        version: 7.18.0(@typescript-eslint/parser@7.18.0(eslint@8.57.1)(typescript@5.9.3))(eslint@8.57.1)(typescript@5.9.3)
+      '@typescript-eslint/parser':
+        specifier: ^7.0.0
+        version: 7.18.0(eslint@8.57.1)(typescript@5.9.3)
+      eslint:
+        specifier: ^8.57.0
+        version: 8.57.1
+      typescript:
+        specifier: ^5.4.0
+        version: 5.9.3
+
   packages/config:
     dependencies:
       '@docaudit/shared':

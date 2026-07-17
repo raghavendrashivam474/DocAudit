@@ -1,0 +1,32 @@
+﻿{
+  "name": "@docaudit/cli",
+  "version": "0.1.0",
+  "private": true,
+  "description": "DocAudit command-line interface",
+  "type": "module",
+  "bin": {
+    "docaudit": "./dist/main.js"
+  },
+  "scripts": {
+    "build": "tsc --project tsconfig.json",
+    "dev": "tsc --project tsconfig.json --watch",
+    "start": "node dist/main.js",
+    "lint": "eslint src --ext .ts",
+    "lint:fix": "eslint src --ext .ts --fix",
+    "typecheck": "tsc --project tsconfig.json --noEmit",
+    "clean": "Remove-Item -Recurse -Force dist -ErrorAction SilentlyContinue"
+  },
+  "dependencies": {
+    "@docaudit/shared": "workspace:*",
+    "@docaudit/config": "workspace:*",
+    "@docaudit/engine": "workspace:*",
+    "@docaudit/reporter": "workspace:*"
+  },
+  "devDependencies": {
+    "@types/node": "^20.0.0",
+    "@typescript-eslint/eslint-plugin": "^7.0.0",
+    "@typescript-eslint/parser": "^7.0.0",
+    "eslint": "^8.57.0",
+    "typescript": "^5.4.0"
+  }
+}
