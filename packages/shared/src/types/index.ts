@@ -12,7 +12,6 @@ export type {
 
 // Analyzer runtime
 export type {
-  AnalyzerRunConfig,
   AnalyzerContext,
   AnalyzerOutput,
   IAnalyzer,
@@ -38,3 +37,21 @@ export type {
   ReportGeneratorOptions,
   IReportGenerator,
 } from "./report.js";
+
+// Semantic Document Model
+export type {
+  TextSpan,
+  DocHeading,
+  DocSection,
+  DocParagraph,
+  DocCodeBlock,
+  LinkType,
+  DocLink,
+  DocImage,
+  ListKind,
+  DocListItem,
+  DocList,
+  DocTable,
+  DocBadge,
+  SemanticDocument,
+} from "./document.js";

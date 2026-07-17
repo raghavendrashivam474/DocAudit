@@ -8,13 +8,11 @@ import type {
   AnalysisScore,
   Severity,
 } from "@docaudit/shared";
+import { parseMarkdown } from "../parser/markdownParser.js";
 
-// ─── Helpers ──────────────────────────────────────────────────────────────────
+// ─── Scoring helpers ──────────────────────────────────────────────────────────
 
-function countBySeverity(
-  issues: AnalysisIssue[],
-  severity: Severity
-): number {
+function countBySeverity(issues: AnalysisIssue[], severity: Severity): number {
   return issues.filter((i) => i.severity === severity).length;
 }
 
@@ -40,16 +38,10 @@ function computeScore(issues: AnalysisIssue[]): AnalysisScore {
     deductions += SEVERITY_PENALTY[issue.severity];
   }
   const overall = Math.max(0, Math.min(100, 100 - deductions));
-
-  return {
-    overall,
-    categories: [],
-    grade: computeGrade(overall),
-  };
+  return { overall, categories: [], grade: computeGrade(overall) };
 }
 
 function buildSummary(issues: AnalysisIssue[]): AnalysisSummary {
-  const score = computeScore(issues);
   return {
     totalIssues:   issues.length,
     criticalCount: countBySeverity(issues, "critical"),
@@ -57,7 +49,7 @@ function buildSummary(issues: AnalysisIssue[]): AnalysisSummary {
     mediumCount:   countBySeverity(issues, "medium"),
     lowCount:      countBySeverity(issues, "low"),
     infoCount:     countBySeverity(issues, "info"),
-    score,
+    score:         computeScore(issues),
     topIssues:     issues
       .filter((i) => i.severity === "critical" || i.severity === "high")
       .slice(0, 5),
@@ -74,8 +66,8 @@ export interface PipelineOptions {
 }
 
 /**
- * Executes every registered analyzer against a single document
- * and aggregates the results into one AnalysisResult.
+ * Parses the document ONCE into a SemanticDocument, then passes it
+ * to every analyzer. No analyzer ever touches raw Markdown directly.
  */
 export async function runPipeline(
   analyzers: IAnalyzer[],
@@ -84,28 +76,30 @@ export async function runPipeline(
   const documentId = options.documentId ?? randomUUID();
   const startTime = performance.now();
 
+  // ── Single parse ──────────────────────────────────────────────────────────
+  const document = parseMarkdown(options.content);
+
   const context: AnalyzerContext = {
     documentId,
     documentName: options.documentName,
     content: options.content,
+    document,
     ...(options.metadata !== undefined ? { metadata: options.metadata } : {}),
   };
 
+  // ── Run all analyzers ─────────────────────────────────────────────────────
   const allIssues: AnalysisIssue[] = [];
-
   for (const analyzer of analyzers) {
     const output = await analyzer.analyze(context);
     allIssues.push(...output.issues);
   }
-
-  const duration = performance.now() - startTime;
 
   return {
     id: randomUUID(),
     documentId,
     documentName: options.documentName,
     analyzedAt: new Date(),
-    duration,
+    duration: performance.now() - startTime,
     issues: allIssues,
     summary: buildSummary(allIssues),
   };

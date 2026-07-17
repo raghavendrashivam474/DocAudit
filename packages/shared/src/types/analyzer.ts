@@ -1,12 +1,5 @@
 import type { AnalysisIssue } from "./analysis.js";
-
-// ─── Runtime Analyzer Options ─────────────────────────────────────────────────
-
-export interface AnalyzerRunConfig {
-  readonly enabled: boolean;
-  readonly severity?: string;
-  readonly options?: Record<string, unknown>;
-}
+import type { SemanticDocument } from "./document.js";
 
 // ─── Analyzer Execution Context ───────────────────────────────────────────────
 
@@ -14,6 +7,7 @@ export interface AnalyzerContext {
   readonly documentId: string;
   readonly documentName: string;
   readonly content: string;
+  readonly document: SemanticDocument;
   readonly metadata?: Record<string, unknown> | undefined;
 }
 

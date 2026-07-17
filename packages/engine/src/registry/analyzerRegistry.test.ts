@@ -6,9 +6,7 @@ import { StructureAnalyzer } from "../analyzers/structureAnalyzer.js";
 describe("AnalyzerRegistryImpl", () => {
   let registry: AnalyzerRegistryImpl;
 
-  beforeEach(() => {
-    registry = new AnalyzerRegistryImpl();
-  });
+  beforeEach(() => { registry = new AnalyzerRegistryImpl(); });
 
   it("starts empty", () => {
     expect(registry.size).toBe(0);
@@ -22,9 +20,7 @@ describe("AnalyzerRegistryImpl", () => {
 
   it("retrieves analyzer by name", () => {
     registry.register(new PlaceholderAnalyzer());
-    const analyzer = registry.get("placeholder");
-    expect(analyzer).toBeDefined();
-    expect(analyzer?.name).toBe("placeholder");
+    expect(registry.get("placeholder")?.name).toBe("placeholder");
   });
 
   it("returns undefined for unknown name", () => {
@@ -40,7 +36,7 @@ describe("AnalyzerRegistryImpl", () => {
   it("throws when registering duplicate name", () => {
     registry.register(new PlaceholderAnalyzer());
     expect(() => registry.register(new PlaceholderAnalyzer())).toThrow(
-      'Analyzer "placeholder" is already registered.'
+      "already registered"
     );
   });
 
@@ -53,7 +49,6 @@ describe("AnalyzerRegistryImpl", () => {
   it("preserves insertion order", () => {
     registry.register(new PlaceholderAnalyzer());
     registry.register(new StructureAnalyzer());
-    const names = registry.getAll().map((a) => a.name);
-    expect(names).toEqual(["placeholder", "structure"]);
+    expect(registry.getAll().map((a) => a.name)).toEqual(["placeholder", "structure"]);
   });
 });

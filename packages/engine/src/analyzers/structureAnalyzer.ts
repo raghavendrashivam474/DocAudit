@@ -3,18 +3,18 @@ import type {
   AnalyzerContext,
   AnalyzerOutput,
   AnalysisIssue,
+  DocHeading,
 } from "@docaudit/shared";
-import { extractHeadings } from "./markdown.js";
 
 export class StructureAnalyzer implements IAnalyzer {
   readonly name = "structure";
   readonly version = "0.1.0";
 
   async analyze(context: AnalyzerContext): Promise<AnalyzerOutput> {
-    const headings = extractHeadings(context.content);
+    const { headings } = context.document;
     const issues: AnalysisIssue[] = [];
 
-    // ── No headings at all ──────────────────────────────────────────────
+    // ── No headings ────────────────────────────────────────────────────────
     if (headings.length === 0) {
       issues.push({
         id: `${this.name}:no-headings`,
@@ -22,80 +22,74 @@ export class StructureAnalyzer implements IAnalyzer {
         severity: "high",
         title: "Document has no headings",
         description:
-          "The document does not contain any Markdown headings. Structured headings improve readability and navigation.",
+          "The document contains no Markdown headings. Structured headings improve readability and navigation.",
         suggestion: "Add a top-level title (# Heading) and section headings.",
         ruleId: "structure.no-headings",
       });
-
       return { issues };
     }
 
-    // ── First heading should be H1 ─────────────────────────────────────
-    const firstHeading = headings[0];
-    if (firstHeading !== undefined && firstHeading.level !== 1) {
+    // ── First heading should be H1 ─────────────────────────────────────────
+    const first = headings[0];
+    if (first !== undefined && first.level !== 1) {
       issues.push({
-        id: `${this.name}:missing-h1:${String(firstHeading.line)}`,
+        id: `${this.name}:missing-h1:${String(first.line)}`,
         category: "structure",
         severity: "high",
         title: "Document should begin with an H1 title",
         description:
           "The first heading is not a level-1 heading. A document should start with a single H1 title.",
         suggestion: "Change the first heading to `# Title`.",
-        location: { line: firstHeading.line },
+        location: { line: first.line },
         ruleId: "structure.missing-h1",
       });
     }
 
-    // ── Multiple H1s ────────────────────────────────────────────────────
+    // ── Multiple H1s ───────────────────────────────────────────────────────
     const h1s = headings.filter((h) => h.level === 1);
     if (h1s.length > 1) {
-      const secondH1 = h1s[1];
+      const second = h1s[1];
       issues.push({
         id: `${this.name}:multiple-h1`,
         category: "structure",
         severity: "medium",
         title: "Document contains multiple H1 headings",
         description:
-          "Multiple top-level titles can make the document hierarchy ambiguous.",
+          "Multiple top-level titles make the document hierarchy ambiguous.",
         suggestion:
           "Keep one H1 for the document title and use H2/H3 for sections.",
-        ...(secondH1 !== undefined ? { location: { line: secondH1.line } } : {}),
+        ...(second !== undefined ? { location: { line: second.line } } : {}),
         ruleId: "structure.multiple-h1",
       });
     }
 
-    // ── Heading level jumps + empty headings ────────────────────────────
+    // ── Heading jumps + empty headings ─────────────────────────────────────
     for (let i = 1; i < headings.length; i += 1) {
-      const previous = headings[i - 1];
-      const current = headings[i];
+      const prev = headings[i - 1] as DocHeading;
+      const curr = headings[i] as DocHeading;
 
-      if (previous === undefined || current === undefined) {
-        continue;
-      }
-
-      if (current.level > previous.level + 1) {
+      if (curr.level > prev.level + 1) {
         issues.push({
-          id: `${this.name}:heading-jump:${String(current.line)}`,
+          id: `${this.name}:heading-jump:${String(curr.line)}`,
           category: "structure",
           severity: "medium",
           title: "Heading level jumps too abruptly",
-          description: `Heading "${current.text}" jumps from H${String(previous.level)} to H${String(current.level)}, which skips an intermediate level.`,
-          suggestion: `Use H${String(previous.level + 1)} before H${String(current.level)}.`,
-          location: { line: current.line },
+          description: `Heading "${curr.text}" jumps from H${String(prev.level)} to H${String(curr.level)}, skipping an intermediate level.`,
+          suggestion: `Use H${String(prev.level + 1)} before H${String(curr.level)}.`,
+          location: { line: curr.line },
           ruleId: "structure.heading-jump",
         });
       }
 
-      if (current.text.length === 0) {
+      if (curr.text.trim().length === 0) {
         issues.push({
-          id: `${this.name}:empty-heading:${String(current.line)}`,
+          id: `${this.name}:empty-heading:${String(curr.line)}`,
           category: "structure",
           severity: "low",
           title: "Heading text is empty",
-          description:
-            "A heading marker exists but the heading has no visible text.",
+          description: "A heading marker exists but has no visible text.",
           suggestion: "Add descriptive text after the heading marker.",
-          location: { line: current.line },
+          location: { line: curr.line },
           ruleId: "structure.empty-heading",
         });
       }

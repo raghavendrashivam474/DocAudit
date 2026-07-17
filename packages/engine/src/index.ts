@@ -3,6 +3,9 @@ export { runPipeline } from "./pipeline/pipeline.js";
 export type { PipelineOptions } from "./pipeline/pipeline.js";
 export { aggregateResults } from "./pipeline/aggregate.js";
 
+// ─── Parser ───────────────────────────────────────────────────────────────────
+export { parseMarkdown } from "./parser/markdownParser.js";
+
 // ─── Discovery ────────────────────────────────────────────────────────────────
 export { discoverFiles } from "./discovery/discoverFiles.js";
 export type { DiscoveryOptions } from "./discovery/discoverFiles.js";
