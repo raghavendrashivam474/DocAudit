@@ -1,7 +1,5 @@
 import type { DocAuditConfig } from "@docaudit/shared";
 
-// ─── Validation Types ─────────────────────────────────────────────────────────
-
 export interface ConfigValidationError {
   readonly field: string;
   readonly message: string;
@@ -11,8 +9,6 @@ export type ConfigValidationResult =
   | { readonly valid: true; readonly config: DocAuditConfig }
   | { readonly valid: false; readonly errors: readonly ConfigValidationError[] };
 
-// ─── Constants ────────────────────────────────────────────────────────────────
-
 const VALID_SEVERITIES = new Set<string>([
   "critical",
   "high",
@@ -21,13 +17,11 @@ const VALID_SEVERITIES = new Set<string>([
   "info",
 ]);
 
-// ─── Validator ────────────────────────────────────────────────────────────────
-
 /**
  * Validates a raw configuration object.
  *
- * After field-level checks pass we know the shape matches DocAuditConfig,
- * so the cast through `unknown` is safe and intentional.
+ * After field-level checks pass we know the shape matches DocAuditConfig.
+ * The final assignment uses a type-safe assembly rather than a cast.
  */
 export function validateConfig(raw: unknown): ConfigValidationResult {
   const errors: ConfigValidationError[] = [];
@@ -41,50 +35,52 @@ export function validateConfig(raw: unknown): ConfigValidationResult {
 
   const c = raw as Record<string, unknown>;
 
-  // ── Required field: targetPath ────────────────────────────────────────────
-  if (typeof c["targetPath"] !== "string") {
+  // Extract and validate each field
+  const targetPath = c["targetPath"];
+  const minSeverity = c["minSeverity"];
+  const verbose = c["verbose"];
+  const analyzerOptions = c["analyzerOptions"];
+
+  if (typeof targetPath !== "string") {
     errors.push({
       field: "targetPath",
       message: "targetPath must be a string.",
     });
   }
 
-  // ── Required field: minSeverity ───────────────────────────────────────────
-  if (
-    typeof c["minSeverity"] !== "string" ||
-    !VALID_SEVERITIES.has(c["minSeverity"])
-  ) {
+  if (typeof minSeverity !== "string" || !VALID_SEVERITIES.has(minSeverity)) {
     errors.push({
       field: "minSeverity",
       message: `minSeverity must be one of: ${[...VALID_SEVERITIES].join(", ")}.`,
     });
   }
 
-  // ── Required field: verbose ───────────────────────────────────────────────
-  if (typeof c["verbose"] !== "boolean") {
+  if (typeof verbose !== "boolean") {
     errors.push({
       field: "verbose",
       message: "verbose must be a boolean.",
     });
   }
 
-  // ── Required field: analyzerOptions ───────────────────────────────────────
-  if (
-    typeof c["analyzerOptions"] !== "object" ||
-    c["analyzerOptions"] === null
-  ) {
+  if (typeof analyzerOptions !== "object" || analyzerOptions === null) {
     errors.push({
       field: "analyzerOptions",
       message: "analyzerOptions must be an object.",
     });
   }
 
-  // ── Return result ─────────────────────────────────────────────────────────
   if (errors.length > 0) {
     return { valid: false, errors };
   }
 
-  // Safe: every required field has been runtime-validated above.
-  // The cast goes through `unknown` to satisfy the compiler.
-  return { valid: true, config: c as unknown as DocAuditConfig };
+  // At this point all field validations have passed.
+  // Assemble a properly typed DocAuditConfig from validated fields.
+  const config: DocAuditConfig = {
+    targetPath: targetPath as string,
+    minSeverity: minSeverity as DocAuditConfig["minSeverity"],
+    verbose: verbose as boolean,
+    analyzerOptions: analyzerOptions as DocAuditConfig["analyzerOptions"],
+  };
+
+  return { valid: true, config };
 }

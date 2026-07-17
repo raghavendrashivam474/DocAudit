@@ -9,6 +9,18 @@ export type ConfigLoadResult =
   | { readonly success: true; readonly config: DocAuditConfig }
   | { readonly success: false; readonly errors: readonly string[] };
 
+// Shape of a config module: default export must be an object
+interface ConfigModule {
+  readonly default?: unknown;
+}
+
+/**
+ * Type guard for the imported module shape.
+ */
+function isConfigModule(value: unknown): value is ConfigModule {
+  return typeof value === "object" && value !== null;
+}
+
 /**
  * Locates and loads a project configuration file.
  *
@@ -28,9 +40,28 @@ export async function loadConfig(
 
   try {
     const fileUrl = pathToFileURL(configFilePath).href;
-    const mod = (await import(fileUrl)) as { default?: unknown };
-    const raw = mod.default ?? {};
-    const merged = { ...defaultConfig, ...(raw as object) };
+    const imported: unknown = await import(fileUrl);
+
+    if (!isConfigModule(imported)) {
+      return {
+        success: false,
+        errors: ["docaudit.config.ts must export an object as default"],
+      };
+    }
+
+    const rawExport: unknown = imported.default ?? {};
+    if (typeof rawExport !== "object" || rawExport === null) {
+      return {
+        success: false,
+        errors: ["docaudit.config.ts default export must be an object"],
+      };
+    }
+
+    const merged: Record<string, unknown> = {
+      ...defaultConfig,
+      ...(rawExport as Record<string, unknown>),
+    };
+
     const result = validateConfig(merged);
 
     if (!result.valid) {
@@ -41,7 +72,7 @@ export async function loadConfig(
     }
 
     return { success: true, config: result.config };
-  } catch (err) {
+  } catch (err: unknown) {
     const message = err instanceof Error ? err.message : "Unknown error.";
     return {
       success: false,
