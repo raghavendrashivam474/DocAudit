@@ -9,17 +9,13 @@ export type ConfigLoadResult =
   | { readonly success: true; readonly config: DocAuditConfig }
   | { readonly success: false; readonly errors: readonly string[] };
 
-// Shape of a config module: default export must be an object
-interface ConfigModule {
-  readonly default?: unknown;
+// ─── Type guards ────────────────────────────────────────────────────────────
+
+function isRecord(value: unknown): value is Record<string, unknown> {
+  return typeof value === "object" && value !== null && !Array.isArray(value);
 }
 
-/**
- * Type guard for the imported module shape.
- */
-function isConfigModule(value: unknown): value is ConfigModule {
-  return typeof value === "object" && value !== null;
-}
+// ─── Loader ─────────────────────────────────────────────────────────────────
 
 /**
  * Locates and loads a project configuration file.
@@ -42,24 +38,29 @@ export async function loadConfig(
     const fileUrl = pathToFileURL(configFilePath).href;
     const imported: unknown = await import(fileUrl);
 
-    if (!isConfigModule(imported)) {
+    if (!isRecord(imported)) {
       return {
         success: false,
-        errors: ["docaudit.config.ts must export an object as default"],
+        errors: ["docaudit.config.ts must export an object"],
       };
     }
 
-    const rawExport: unknown = imported.default ?? {};
-    if (typeof rawExport !== "object" || rawExport === null) {
+    // "default" access is safe because imported is Record<string, unknown>
+    const defaultExport: unknown = imported["default"];
+    const rawExport: unknown = defaultExport ?? {};
+
+    if (!isRecord(rawExport)) {
       return {
         success: false,
         errors: ["docaudit.config.ts default export must be an object"],
       };
     }
 
+    // Both defaultConfig and rawExport are Record-shaped — safe spread
+    const defaultAsRecord: Record<string, unknown> = { ...defaultConfig };
     const merged: Record<string, unknown> = {
-      ...defaultConfig,
-      ...(rawExport as Record<string, unknown>),
+      ...defaultAsRecord,
+      ...rawExport,
     };
 
     const result = validateConfig(merged);

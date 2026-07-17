@@ -1,4 +1,4 @@
-import type { DocAuditConfig } from "@docaudit/shared";
+import type { DocAuditConfig, Severity, AnalyzerPluginConfig } from "@docaudit/shared";
 
 export interface ConfigValidationError {
   readonly field: string;
@@ -17,52 +17,81 @@ const VALID_SEVERITIES = new Set<string>([
   "info",
 ]);
 
+// ─── Type predicates ────────────────────────────────────────────────────────
+
+function isRecord(value: unknown): value is Record<string, unknown> {
+  return typeof value === "object" && value !== null && !Array.isArray(value);
+}
+
+function isSeverity(value: unknown): value is Severity {
+  return typeof value === "string" && VALID_SEVERITIES.has(value);
+}
+
+function isString(value: unknown): value is string {
+  return typeof value === "string";
+}
+
+function isBoolean(value: unknown): value is boolean {
+  return typeof value === "boolean";
+}
+
+/**
+ * Best-effort validation of analyzer options.
+ *
+ * The inner shape of AnalyzerPluginConfig is not yet validated —
+ * plugins are expected to validate their own options on load.
+ */
+function coerceAnalyzerOptions(
+  value: Record<string, unknown>
+): Record<string, AnalyzerPluginConfig> {
+  const result: Record<string, AnalyzerPluginConfig> = {};
+  for (const key of Object.keys(value)) {
+    const inner = value[key];
+    if (isRecord(inner)) {
+      // Runtime-verified as an object; treat as plugin config
+      // eslint-disable-next-line @typescript-eslint/consistent-type-assertions
+      result[key] = inner as unknown as AnalyzerPluginConfig;
+    }
+  }
+  return result;
+}
+
+// ─── Validator ─────────────────────────────────────────────────────────────
+
 /**
  * Validates a raw configuration object.
- *
- * After field-level checks pass we know the shape matches DocAuditConfig.
- * The final assignment uses a type-safe assembly rather than a cast.
  */
 export function validateConfig(raw: unknown): ConfigValidationResult {
   const errors: ConfigValidationError[] = [];
 
-  if (typeof raw !== "object" || raw === null) {
+  if (!isRecord(raw)) {
     return {
       valid: false,
       errors: [{ field: "root", message: "Configuration must be an object." }],
     };
   }
 
-  const c = raw as Record<string, unknown>;
+  const targetPath: unknown = raw["targetPath"];
+  const minSeverity: unknown = raw["minSeverity"];
+  const verbose: unknown = raw["verbose"];
+  const analyzerOptions: unknown = raw["analyzerOptions"];
 
-  // Extract and validate each field
-  const targetPath = c["targetPath"];
-  const minSeverity = c["minSeverity"];
-  const verbose = c["verbose"];
-  const analyzerOptions = c["analyzerOptions"];
-
-  if (typeof targetPath !== "string") {
-    errors.push({
-      field: "targetPath",
-      message: "targetPath must be a string.",
-    });
+  if (!isString(targetPath)) {
+    errors.push({ field: "targetPath", message: "targetPath must be a string." });
   }
 
-  if (typeof minSeverity !== "string" || !VALID_SEVERITIES.has(minSeverity)) {
+  if (!isSeverity(minSeverity)) {
     errors.push({
       field: "minSeverity",
       message: `minSeverity must be one of: ${[...VALID_SEVERITIES].join(", ")}.`,
     });
   }
 
-  if (typeof verbose !== "boolean") {
-    errors.push({
-      field: "verbose",
-      message: "verbose must be a boolean.",
-    });
+  if (!isBoolean(verbose)) {
+    errors.push({ field: "verbose", message: "verbose must be a boolean." });
   }
 
-  if (typeof analyzerOptions !== "object" || analyzerOptions === null) {
+  if (!isRecord(analyzerOptions)) {
     errors.push({
       field: "analyzerOptions",
       message: "analyzerOptions must be an object.",
@@ -73,13 +102,24 @@ export function validateConfig(raw: unknown): ConfigValidationResult {
     return { valid: false, errors };
   }
 
-  // At this point all field validations have passed.
-  // Assemble a properly typed DocAuditConfig from validated fields.
+  // Re-narrow for TypeScript. errors.length === 0 means all passed.
+  if (
+    !isString(targetPath) ||
+    !isSeverity(minSeverity) ||
+    !isBoolean(verbose) ||
+    !isRecord(analyzerOptions)
+  ) {
+    return {
+      valid: false,
+      errors: [{ field: "root", message: "Type narrowing failed." }],
+    };
+  }
+
   const config: DocAuditConfig = {
-    targetPath: targetPath as string,
-    minSeverity: minSeverity as DocAuditConfig["minSeverity"],
-    verbose: verbose as boolean,
-    analyzerOptions: analyzerOptions as DocAuditConfig["analyzerOptions"],
+    targetPath,
+    minSeverity,
+    verbose,
+    analyzerOptions: coerceAnalyzerOptions(analyzerOptions),
   };
 
   return { valid: true, config };

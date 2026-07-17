@@ -19,8 +19,8 @@ module.exports = {
   },
   overrides: [
     {
-      // Type-aware rules for all source files
-      files: ["packages/*/src/**/*.ts", "apps/*/src/**/*.ts"],
+      // Type-aware rules — match .ts anywhere under src/
+      files: ["**/src/**/*.ts"],
       parserOptions: {
         project: [
           "./packages/shared/tsconfig.eslint.json",
@@ -42,24 +42,24 @@ module.exports = {
       }
     },
     {
-      // CLI is a console application - console output is intentional
-      files: ["apps/cli/src/**/*.ts"],
+      // CLI - console output is intentional
+      files: ["**/apps/cli/src/**/*.ts"],
       rules: {
         "no-console": "off"
       }
     },
     {
-      // Renderers write to console by design
+      // Reporter renderers write to console by design
       files: [
-        "packages/reporter/src/renderers/**/*.ts",
-        "packages/reporter/src/formatters/**/*.ts"
+        "**/reporter/src/renderers/**/*.ts",
+        "**/reporter/src/formatters/**/*.ts"
       ],
       rules: {
         "no-console": "off"
       }
     },
     {
-      // Test files - relax some rules
+      // Test files
       files: ["**/*.test.ts"],
       rules: {
         "no-console": "off",
