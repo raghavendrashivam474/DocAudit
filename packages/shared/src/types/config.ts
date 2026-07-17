@@ -1,4 +1,4 @@
-﻿import type { Severity, IssueCategory } from "./analysis.js";
+import type { Severity, IssueCategory } from "./analysis.js";
 
 // ─── Rule Configuration ───────────────────────────────────────────────────────
 

@@ -1,4 +1,4 @@
-﻿// ─── Analysis Domain Models ───────────────────────────────────────────────────
+// ─── Analysis Domain Models ───────────────────────────────────────────────────
 export type {
   Severity,
   IssueCategory,

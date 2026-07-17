@@ -1,4 +1,4 @@
-﻿import type { DocAuditConfig } from "@docaudit/shared";
+import type { DocAuditConfig } from "@docaudit/shared";
 
 /**
  * Defaults applied when no project configuration file is found.

@@ -1,4 +1,4 @@
-﻿import { readdirSync, statSync } from "node:fs";
+import { readdirSync, statSync } from "node:fs";
 import { join, extname } from "node:path";
 
 const SUPPORTED_EXTENSIONS = new Set([".md", ".mdx", ".txt", ".rst"]);

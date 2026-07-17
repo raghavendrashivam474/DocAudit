@@ -1,4 +1,4 @@
-﻿// Analysis
+// Analysis
 export type {
   Severity,
   IssueCategory,

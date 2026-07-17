@@ -1,4 +1,4 @@
-﻿export { loadConfig } from "./loader/configLoader.js";
+export { loadConfig } from "./loader/configLoader.js";
 export type { ConfigLoadResult } from "./loader/configLoader.js";
 
 export { defaultConfig } from "./defaults/defaultConfig.js";

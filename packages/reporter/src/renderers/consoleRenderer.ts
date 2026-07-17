@@ -1,4 +1,4 @@
-﻿import type { AnalysisResult, Severity } from "@docaudit/shared";
+import type { AnalysisResult, Severity } from "@docaudit/shared";
 
 // ─── ANSI colour helpers ──────────────────────────────────────────────────────
 

@@ -1,4 +1,4 @@
-﻿import type { AnalysisResult, AnalysisSummary, AnalysisScore } from "@docaudit/shared";
+import type { AnalysisResult, AnalysisSummary, AnalysisScore } from "@docaudit/shared";
 
 function computeGrade(score: number): "A" | "B" | "C" | "D" | "F" {
   if (score >= 90) return "A";

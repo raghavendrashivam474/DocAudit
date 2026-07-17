@@ -1,4 +1,4 @@
-﻿import type { AnalysisResult, AnalysisSummary } from "./analysis.js";
+import type { AnalysisResult, AnalysisSummary } from "./analysis.js";
 
 export type ReportFormat = "json" | "html" | "markdown" | "pdf";
 

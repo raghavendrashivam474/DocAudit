@@ -1,4 +1,4 @@
-﻿export interface Heading {
+export interface Heading {
   readonly level: number;
   readonly text: string;
   readonly line: number;

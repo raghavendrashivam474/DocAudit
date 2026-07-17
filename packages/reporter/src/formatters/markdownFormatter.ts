@@ -1,4 +1,4 @@
-﻿import type { AnalysisResult, AnalysisIssue, Severity } from "@docaudit/shared";
+import type { AnalysisResult, AnalysisIssue, Severity } from "@docaudit/shared";
 
 // ─── Helpers ──────────────────────────────────────────────────────────────────
 

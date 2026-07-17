@@ -1,4 +1,4 @@
-﻿import type { IAnalyzer, AnalyzerContext, AnalyzerOutput } from "@docaudit/shared";
+import type { IAnalyzer, AnalyzerContext, AnalyzerOutput } from "@docaudit/shared";
 
 /**
  * A no-op analyzer used during development and testing.

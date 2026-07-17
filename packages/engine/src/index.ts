@@ -1,4 +1,4 @@
-﻿// ─── Pipeline ─────────────────────────────────────────────────────────────────
+// ─── Pipeline ─────────────────────────────────────────────────────────────────
 export { runPipeline } from "./pipeline/pipeline.js";
 export type { PipelineOptions } from "./pipeline/pipeline.js";
 export { aggregateResults } from "./pipeline/aggregate.js";

@@ -1,4 +1,4 @@
-﻿import type {
+import type {
   IAnalyzer,
   AnalyzerContext,
   AnalyzerOutput,

@@ -1,4 +1,4 @@
-﻿import { readFileSync, existsSync, statSync } from "node:fs";
+import { readFileSync, existsSync, statSync } from "node:fs";
 import { resolve, basename } from "node:path";
 import { loadConfig } from "@docaudit/config";
 import {

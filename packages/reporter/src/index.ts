@@ -1,4 +1,4 @@
-﻿// ─── Formatters ───────────────────────────────────────────────────────────────
+// ─── Formatters ───────────────────────────────────────────────────────────────
 export { formatJson }     from "./formatters/jsonFormatter.js";
 export { formatMarkdown } from "./formatters/markdownFormatter.js";
 

@@ -1,4 +1,4 @@
-﻿import type { AnalysisIssue } from "./analysis.js";
+import type { AnalysisIssue } from "./analysis.js";
 
 // ─── Runtime Analyzer Options ─────────────────────────────────────────────────
 

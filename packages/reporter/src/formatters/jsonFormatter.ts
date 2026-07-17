@@ -1,4 +1,4 @@
-﻿import type { AnalysisResult } from "@docaudit/shared";
+import type { AnalysisResult } from "@docaudit/shared";
 
 /**
  * Serialises one or more analysis results to a pretty-printed JSON string.

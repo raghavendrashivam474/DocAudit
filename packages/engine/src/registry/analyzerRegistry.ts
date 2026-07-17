@@ -1,4 +1,4 @@
-﻿import type { IAnalyzer } from "@docaudit/shared";
+import type { IAnalyzer } from "@docaudit/shared";
 
 /**
  * In-memory registry of analyzer plugins.
