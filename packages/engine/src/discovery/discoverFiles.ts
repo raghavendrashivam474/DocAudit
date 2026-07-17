@@ -1,5 +1,6 @@
 import { readdirSync, statSync } from "node:fs";
 import { join, extname } from "node:path";
+import { isIgnored } from "./ignorePatterns.js";
 
 const SUPPORTED_EXTENSIONS = new Set([".md", ".mdx", ".txt", ".rst"]);
 
@@ -7,13 +8,9 @@ export interface DiscoveryOptions {
   readonly extensions?: readonly string[] | undefined;
   readonly recursive?: boolean | undefined;
   readonly maxDepth?: number | undefined;
+  readonly ignorePatterns?: readonly string[] | undefined;
 }
 
-/**
- * Discovers document files in a directory.
- *
- * Returns absolute paths to all matching files.
- */
 export function discoverFiles(
   dirPath: string,
   options?: DiscoveryOptions
@@ -23,37 +20,30 @@ export function discoverFiles(
     : SUPPORTED_EXTENSIONS;
   const recursive = options?.recursive ?? true;
   const maxDepth = options?.maxDepth ?? 10;
+  const ignorePatterns = options?.ignorePatterns ?? [];
 
   const results: string[] = [];
 
   function walk(currentPath: string, depth: number): void {
-    if (depth > maxDepth) {
-      return;
-    }
+    if (depth > maxDepth) return;
 
     let entries: string[];
-    try {
-      entries = readdirSync(currentPath);
-    } catch {
-      return;
-    }
+    try { entries = readdirSync(currentPath); }
+    catch { return; }
 
     for (const entry of entries) {
       const fullPath = join(currentPath, entry);
 
+      if (isIgnored(fullPath, ignorePatterns)) continue;
+
       let stats;
-      try {
-        stats = statSync(fullPath);
-      } catch {
-        continue;
-      }
+      try { stats = statSync(fullPath); }
+      catch { continue; }
 
       if (stats.isFile() && extensions.has(extname(entry).toLowerCase())) {
         results.push(fullPath);
       } else if (stats.isDirectory() && recursive) {
-        if (entry === "node_modules" || entry === ".git" || entry === "dist") {
-          continue;
-        }
+        if (entry === "node_modules" || entry === ".git" || entry === "dist") continue;
         walk(fullPath, depth + 1);
       }
     }

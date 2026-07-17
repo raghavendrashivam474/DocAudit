@@ -1,26 +1,27 @@
-// ─── Pipeline ─────────────────────────────────────────────────────────────────
+// Pipeline
 export { runPipeline } from "./pipeline/pipeline.js";
 export type { PipelineOptions } from "./pipeline/pipeline.js";
 export { aggregateResults } from "./pipeline/aggregate.js";
 
-// ─── Parser ───────────────────────────────────────────────────────────────────
+// Parser
 export { parseMarkdown } from "./parser/markdownParser.js";
 
-// ─── Scoring ──────────────────────────────────────────────────────────────────
+// Scoring
 export { computeHealthScore } from "./scoring/healthScore.js";
 
-// ─── Recommendations ──────────────────────────────────────────────────────────
+// Recommendations
 export { generateRecommendations } from "./recommendations/recommendationEngine.js";
 export type { Recommendation } from "./recommendations/recommendationEngine.js";
 
-// ─── Discovery ────────────────────────────────────────────────────────────────
+// Discovery
 export { discoverFiles } from "./discovery/discoverFiles.js";
 export type { DiscoveryOptions } from "./discovery/discoverFiles.js";
+export { loadIgnorePatterns, isIgnored } from "./discovery/ignorePatterns.js";
 
-// ─── Registry ─────────────────────────────────────────────────────────────────
+// Registry
 export { AnalyzerRegistryImpl } from "./registry/analyzerRegistry.js";
 
-// ─── Built-in Analyzers ──────────────────────────────────────────────────────
+// Analyzers
 export { PlaceholderAnalyzer } from "./analyzers/placeholderAnalyzer.js";
 export { StructureAnalyzer } from "./analyzers/structureAnalyzer.js";
 export { CompletenessAnalyzer } from "./analyzers/completenessAnalyzer.js";

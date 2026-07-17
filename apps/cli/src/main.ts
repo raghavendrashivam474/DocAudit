@@ -8,18 +8,26 @@ function isSeverity(value: string): value is Severity {
 }
 
 function printUsage(): void {
-  console.log(`
-  Usage: docaudit <command> [options]
+  console.log("");
+  console.log("  Usage: docaudit <command> [options]");
+  console.log("");
+  console.log("  Commands:");
+  console.log("    analyze <file|dir>   Analyse a document or directory");
+  console.log("");
+  console.log("  Options:");
+  console.log("    --format <type>        Output format: console | json | markdown  (default: console)");
+  console.log("    --min-severity <level> Minimum severity to report: critical | high | medium | low | info");
+  console.log("    --fail-on <level>      Exit with code 1 if issues at this level or above are found");
+  console.log("    --output <path>        Write report to file instead of stdout");
+  console.log("    --help                 Show this help message");
+  console.log("    --version              Show version");
+  console.log("");
+}
 
-  Commands:
-    analyze <file|dir>   Analyse a document or directory
-
-  Options:
-    --format <type>        Output format: console | json | markdown  (default: console)
-    --min-severity <level> Minimum severity to report: critical | high | medium | low | info
-    --help                 Show this help message
-    --version              Show version
-  `);
+function getArg(args: string[], flag: string): string | undefined {
+  const index = args.indexOf(flag);
+  if (index === -1) return undefined;
+  return args[index + 1];
 }
 
 async function main(): Promise<void> {
@@ -36,49 +44,67 @@ async function main(): Promise<void> {
   }
 
   const command = args[0];
-
   if (command !== "analyze") {
-    console.error(`Unknown command: ${command}`);
+    console.error("Unknown command: " + String(command));
     printUsage();
     process.exit(1);
   }
 
   const targetPath = args[1];
-  if (!targetPath) {
-    console.error("error: analyze command requires a file or directory path");
+  if (targetPath === undefined || targetPath.startsWith("--")) {
+    console.error("error: analyze requires a file or directory path");
     printUsage();
     process.exit(1);
   }
 
-  // Parse --format
+  // --format
   let format: "console" | "json" | "markdown" | undefined;
-  const formatIndex = args.indexOf("--format");
-  if (formatIndex !== -1) {
-    const value = args[formatIndex + 1];
-    if (value === "console" || value === "json" || value === "markdown") {
-      format = value;
+  const formatVal = getArg(args, "--format");
+  if (formatVal !== undefined) {
+    if (formatVal === "console" || formatVal === "json" || formatVal === "markdown") {
+      format = formatVal;
     } else {
-      console.error(`Unknown format: ${value ?? "(none)"}`);
+      console.error("Unknown format: " + formatVal);
       process.exit(1);
     }
   }
 
-  // Parse --min-severity
+  // --min-severity
   let minSeverity: Severity | undefined;
-  const sevIndex = args.indexOf("--min-severity");
-  if (sevIndex !== -1) {
-    const value = args[sevIndex + 1];
-    if (value !== undefined && isSeverity(value)) {
-      minSeverity = value;
+  const minSevVal = getArg(args, "--min-severity");
+  if (minSevVal !== undefined) {
+    if (isSeverity(minSevVal)) {
+      minSeverity = minSevVal;
     } else {
-      console.error(
-        `Unknown severity: ${value ?? "(none)"}. Must be one of: ${SEVERITIES.join(", ")}`
-      );
+      console.error("Unknown severity: " + minSevVal + ". Must be one of: " + SEVERITIES.join(", "));
       process.exit(1);
     }
   }
 
-  await analyzeCommand({ targetPath, format, minSeverity });
+  // --fail-on
+  let failOn: Severity | undefined;
+  const failOnVal = getArg(args, "--fail-on");
+  if (failOnVal !== undefined) {
+    if (isSeverity(failOnVal)) {
+      failOn = failOnVal;
+    } else {
+      console.error("Unknown severity for --fail-on: " + failOnVal);
+      process.exit(1);
+    }
+  }
+
+  // --output
+  const outputPath = getArg(args, "--output");
+
+  const exitCode = await analyzeCommand({
+    targetPath,
+    format,
+    minSeverity,
+    failOn,
+    outputPath,
+  });
+
+  process.exit(exitCode);
 }
 
 main().catch((err: unknown) => {
