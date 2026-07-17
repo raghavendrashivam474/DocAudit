@@ -6,6 +6,13 @@ export { aggregateResults } from "./pipeline/aggregate.js";
 // ─── Parser ───────────────────────────────────────────────────────────────────
 export { parseMarkdown } from "./parser/markdownParser.js";
 
+// ─── Scoring ──────────────────────────────────────────────────────────────────
+export { computeHealthScore } from "./scoring/healthScore.js";
+
+// ─── Recommendations ──────────────────────────────────────────────────────────
+export { generateRecommendations } from "./recommendations/recommendationEngine.js";
+export type { Recommendation } from "./recommendations/recommendationEngine.js";
+
 // ─── Discovery ────────────────────────────────────────────────────────────────
 export { discoverFiles } from "./discovery/discoverFiles.js";
 export type { DiscoveryOptions } from "./discovery/discoverFiles.js";

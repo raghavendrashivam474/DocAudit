@@ -12,7 +12,8 @@
     "types": ["node"]
   },
   "references": [
-    { "path": "../shared" }
+    { "path": "../shared" },
+    { "path": "../engine" }
   ],
   "include": ["src/**/*.ts"],
   "exclude": ["node_modules", "dist"]

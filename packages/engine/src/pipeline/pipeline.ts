@@ -5,43 +5,19 @@ import type {
   AnalysisIssue,
   AnalysisResult,
   AnalysisSummary,
-  AnalysisScore,
   Severity,
 } from "@docaudit/shared";
 import { parseMarkdown } from "../parser/markdownParser.js";
+import { computeHealthScore } from "../scoring/healthScore.js";
 
-// ─── Scoring helpers ──────────────────────────────────────────────────────────
+// ─── Helpers ──────────────────────────────────────────────────────────────────
 
 function countBySeverity(issues: AnalysisIssue[], severity: Severity): number {
   return issues.filter((i) => i.severity === severity).length;
 }
 
-function computeGrade(score: number): "A" | "B" | "C" | "D" | "F" {
-  if (score >= 90) return "A";
-  if (score >= 80) return "B";
-  if (score >= 70) return "C";
-  if (score >= 60) return "D";
-  return "F";
-}
-
-const SEVERITY_PENALTY: Record<Severity, number> = {
-  critical: 15,
-  high:     10,
-  medium:    5,
-  low:       2,
-  info:      0,
-};
-
-function computeScore(issues: AnalysisIssue[]): AnalysisScore {
-  let deductions = 0;
-  for (const issue of issues) {
-    deductions += SEVERITY_PENALTY[issue.severity];
-  }
-  const overall = Math.max(0, Math.min(100, 100 - deductions));
-  return { overall, categories: [], grade: computeGrade(overall) };
-}
-
 function buildSummary(issues: AnalysisIssue[]): AnalysisSummary {
+  const score = computeHealthScore(issues);
   return {
     totalIssues:   issues.length,
     criticalCount: countBySeverity(issues, "critical"),
@@ -49,8 +25,8 @@ function buildSummary(issues: AnalysisIssue[]): AnalysisSummary {
     mediumCount:   countBySeverity(issues, "medium"),
     lowCount:      countBySeverity(issues, "low"),
     infoCount:     countBySeverity(issues, "info"),
-    score:         computeScore(issues),
-    topIssues:     issues
+    score,
+    topIssues: issues
       .filter((i) => i.severity === "critical" || i.severity === "high")
       .slice(0, 5),
   };
@@ -66,8 +42,7 @@ export interface PipelineOptions {
 }
 
 /**
- * Parses the document ONCE into a SemanticDocument, then passes it
- * to every analyzer. No analyzer ever touches raw Markdown directly.
+ * Parses once, runs all analyzers, computes weighted category scores.
  */
 export async function runPipeline(
   analyzers: IAnalyzer[],
@@ -76,7 +51,6 @@ export async function runPipeline(
   const documentId = options.documentId ?? randomUUID();
   const startTime = performance.now();
 
-  // ── Single parse ──────────────────────────────────────────────────────────
   const document = parseMarkdown(options.content);
 
   const context: AnalyzerContext = {
@@ -87,7 +61,6 @@ export async function runPipeline(
     ...(options.metadata !== undefined ? { metadata: options.metadata } : {}),
   };
 
-  // ── Run all analyzers ─────────────────────────────────────────────────────
   const allIssues: AnalysisIssue[] = [];
   for (const analyzer of analyzers) {
     const output = await analyzer.analyze(context);

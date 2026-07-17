@@ -21,7 +21,8 @@
     "clean": "Remove-Item -Recurse -Force dist -ErrorAction SilentlyContinue"
   },
   "dependencies": {
-    "@docaudit/shared": "workspace:*"
+    "@docaudit/shared": "workspace:*",
+    "@docaudit/engine": "workspace:*"
   },
   "devDependencies": {
     "@types/node": "^20.0.0",

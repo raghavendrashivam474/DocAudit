@@ -113,6 +113,9 @@ importers:
 
   packages/reporter:
     dependencies:
+      '@docaudit/engine':
+        specifier: workspace:*
+        version: link:../engine
       '@docaudit/shared':
         specifier: workspace:*
         version: link:../shared
