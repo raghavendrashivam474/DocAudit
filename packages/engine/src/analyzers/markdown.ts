@@ -23,7 +23,11 @@ export function extractHeadings(content: string): Heading[] {
   let inFence = false;
 
   for (let i = 0; i < lines.length; i += 1) {
-    const line = lines[i] ?? "";
+    const line = lines[i];
+
+    if (line === undefined) {
+      continue;
+    }
 
     if (/^\s*```/.test(line)) {
       inFence = !inFence;
@@ -35,13 +39,20 @@ export function extractHeadings(content: string): Heading[] {
     }
 
     const match = /^(#{1,6})\s+(.*?)\s*$/.exec(line);
-    if (!match) {
+    if (match === null) {
+      continue;
+    }
+
+    const hashes = match[1];
+    const text = match[2];
+
+    if (hashes === undefined || text === undefined) {
       continue;
     }
 
     headings.push({
-      level: match[1].length,
-      text: match[2].trim(),
+      level: hashes.length,
+      text: text.trim(),
       line: i + 1,
     });
   }

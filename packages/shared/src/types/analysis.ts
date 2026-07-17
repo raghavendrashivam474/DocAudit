@@ -1,65 +1,65 @@
-﻿export type Severity = 'critical' | 'high' | 'medium' | 'low' | 'info';
+﻿export type Severity = "critical" | "high" | "medium" | "low" | "info";
 
 export type IssueCategory =
-  | 'completeness'
-  | 'accuracy'
-  | 'clarity'
-  | 'consistency'
-  | 'compliance'
-  | 'structure';
+  | "completeness"
+  | "accuracy"
+  | "clarity"
+  | "consistency"
+  | "compliance"
+  | "structure";
 
 export interface DocumentLocation {
-  section?: string;
-  paragraph?: number;
-  line?: number;
-  startOffset?: number;
-  endOffset?: number;
+  readonly section?: string | undefined;
+  readonly paragraph?: number | undefined;
+  readonly line?: number | undefined;
+  readonly startOffset?: number | undefined;
+  readonly endOffset?: number | undefined;
 }
 
 export interface AnalysisIssue {
-  id: string;
-  category: IssueCategory;
-  severity: Severity;
-  title: string;
-  description: string;
-  location?: DocumentLocation;
-  suggestion?: string;
-  affectedText?: string;
-  ruleId?: string;
-  metadata?: Record<string, unknown>;
+  readonly id: string;
+  readonly category: IssueCategory;
+  readonly severity: Severity;
+  readonly title: string;
+  readonly description: string;
+  readonly location?: DocumentLocation | undefined;
+  readonly suggestion?: string | undefined;
+  readonly affectedText?: string | undefined;
+  readonly ruleId?: string | undefined;
+  readonly metadata?: Record<string, unknown> | undefined;
 }
 
 export interface CategoryScore {
-  category: IssueCategory;
-  score: number;
-  weight: number;
-  issueCount: number;
+  readonly category: IssueCategory;
+  readonly score: number;
+  readonly weight: number;
+  readonly issueCount: number;
 }
 
 export interface AnalysisScore {
-  overall: number;
-  categories: CategoryScore[];
-  grade: 'A' | 'B' | 'C' | 'D' | 'F';
+  readonly overall: number;
+  readonly categories: CategoryScore[];
+  readonly grade: "A" | "B" | "C" | "D" | "F";
 }
 
 export interface AnalysisSummary {
-  totalIssues: number;
-  criticalCount: number;
-  highCount: number;
-  mediumCount: number;
-  lowCount: number;
-  infoCount: number;
-  score: AnalysisScore;
-  topIssues: AnalysisIssue[];
+  readonly totalIssues: number;
+  readonly criticalCount: number;
+  readonly highCount: number;
+  readonly mediumCount: number;
+  readonly lowCount: number;
+  readonly infoCount: number;
+  readonly score: AnalysisScore;
+  readonly topIssues: AnalysisIssue[];
 }
 
 export interface AnalysisResult {
-  id: string;
-  documentId: string;
-  documentName: string;
-  analyzedAt: Date;
-  duration: number;
-  issues: AnalysisIssue[];
-  summary: AnalysisSummary;
-  metadata?: Record<string, unknown>;
+  readonly id: string;
+  readonly documentId: string;
+  readonly documentName: string;
+  readonly analyzedAt: Date;
+  readonly duration: number;
+  readonly issues: AnalysisIssue[];
+  readonly summary: AnalysisSummary;
+  readonly metadata?: Record<string, unknown> | undefined;
 }

@@ -14,6 +14,7 @@ export class StructureAnalyzer implements IAnalyzer {
     const headings = extractHeadings(context.content);
     const issues: AnalysisIssue[] = [];
 
+    // ── No headings at all ──────────────────────────────────────────────
     if (headings.length === 0) {
       issues.push({
         id: `${this.name}:no-headings`,
@@ -29,10 +30,11 @@ export class StructureAnalyzer implements IAnalyzer {
       return { issues };
     }
 
+    // ── First heading should be H1 ─────────────────────────────────────
     const firstHeading = headings[0];
-    if (firstHeading && firstHeading.level !== 1) {
+    if (firstHeading !== undefined && firstHeading.level !== 1) {
       issues.push({
-        id: `${this.name}:missing-h1:${firstHeading.line}`,
+        id: `${this.name}:missing-h1:${String(firstHeading.line)}`,
         category: "structure",
         severity: "high",
         title: "Document should begin with an H1 title",
@@ -44,8 +46,10 @@ export class StructureAnalyzer implements IAnalyzer {
       });
     }
 
-    const h1s = headings.filter((heading) => heading.level === 1);
+    // ── Multiple H1s ────────────────────────────────────────────────────
+    const h1s = headings.filter((h) => h.level === 1);
     if (h1s.length > 1) {
+      const secondH1 = h1s[1];
       issues.push({
         id: `${this.name}:multiple-h1`,
         category: "structure",
@@ -53,33 +57,38 @@ export class StructureAnalyzer implements IAnalyzer {
         title: "Document contains multiple H1 headings",
         description:
           "Multiple top-level titles can make the document hierarchy ambiguous.",
-        suggestion: "Keep one H1 for the document title and use H2/H3 for sections.",
-        location: { line: h1s[1]?.line },
+        suggestion:
+          "Keep one H1 for the document title and use H2/H3 for sections.",
+        ...(secondH1 !== undefined ? { location: { line: secondH1.line } } : {}),
         ruleId: "structure.multiple-h1",
       });
     }
 
+    // ── Heading level jumps + empty headings ────────────────────────────
     for (let i = 1; i < headings.length; i += 1) {
       const previous = headings[i - 1];
       const current = headings[i];
 
-      if (previous && current && current.level > previous.level + 1) {
+      if (previous === undefined || current === undefined) {
+        continue;
+      }
+
+      if (current.level > previous.level + 1) {
         issues.push({
-          id: `${this.name}:heading-jump:${current.line}`,
+          id: `${this.name}:heading-jump:${String(current.line)}`,
           category: "structure",
           severity: "medium",
           title: "Heading level jumps too abruptly",
-          description:
-            `Heading "${current.text}" jumps from H${previous.level} to H${current.level}, which skips an intermediate level.`,
-          suggestion: `Use H${previous.level + 1} before H${current.level}.`,
+          description: `Heading "${current.text}" jumps from H${String(previous.level)} to H${String(current.level)}, which skips an intermediate level.`,
+          suggestion: `Use H${String(previous.level + 1)} before H${String(current.level)}.`,
           location: { line: current.line },
           ruleId: "structure.heading-jump",
         });
       }
 
-      if (current && current.text.length === 0) {
+      if (current.text.length === 0) {
         issues.push({
-          id: `${this.name}:empty-heading:${current.line}`,
+          id: `${this.name}:empty-heading:${String(current.line)}`,
           category: "structure",
           severity: "low",
           title: "Heading text is empty",
