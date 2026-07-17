@@ -1,22 +1,24 @@
-#!/usr/bin/env node
-
 import { analyzeCommand } from "./commands/analyze.js";
 
-// ─── Minimal Arg Parsing ──────────────────────────────────────────────────────
-// A full CLI framework (e.g. commander, yargs) will be added in a later sprint.
-// For now we parse just enough to be useful.
+type Severity = "critical" | "high" | "medium" | "low" | "info";
+const SEVERITIES: Severity[] = ["critical", "high", "medium", "low", "info"];
+
+function isSeverity(value: string): value is Severity {
+  return (SEVERITIES as string[]).includes(value);
+}
 
 function printUsage(): void {
   console.log(`
   Usage: docaudit <command> [options]
 
   Commands:
-    analyze <file>   Analyse a document and report issues
+    analyze <file|dir>   Analyse a document or directory
 
   Options:
-    --format <type>  Output format: console | json | markdown (default: console)
-    --help           Show this help message
-    --version        Show version
+    --format <type>        Output format: console | json | markdown  (default: console)
+    --min-severity <level> Minimum severity to report: critical | high | medium | low | info
+    --help                 Show this help message
+    --version              Show version
   `);
 }
 
@@ -43,25 +45,40 @@ async function main(): Promise<void> {
 
   const targetPath = args[1];
   if (!targetPath) {
-    console.error("error: analyze command requires a file path");
+    console.error("error: analyze command requires a file or directory path");
     printUsage();
     process.exit(1);
   }
 
-  // Parse --format flag
+  // Parse --format
   let format: "console" | "json" | "markdown" | undefined;
   const formatIndex = args.indexOf("--format");
-  if (formatIndex !== -1 && args[formatIndex + 1]) {
+  if (formatIndex !== -1) {
     const value = args[formatIndex + 1];
     if (value === "console" || value === "json" || value === "markdown") {
       format = value;
     } else {
-      console.error(`Unknown format: ${value}`);
+      console.error(`Unknown format: ${value ?? "(none)"}`);
       process.exit(1);
     }
   }
 
-  await analyzeCommand({ targetPath, format });
+  // Parse --min-severity
+  let minSeverity: Severity | undefined;
+  const sevIndex = args.indexOf("--min-severity");
+  if (sevIndex !== -1) {
+    const value = args[sevIndex + 1];
+    if (value !== undefined && isSeverity(value)) {
+      minSeverity = value;
+    } else {
+      console.error(
+        `Unknown severity: ${value ?? "(none)"}. Must be one of: ${SEVERITIES.join(", ")}`
+      );
+      process.exit(1);
+    }
+  }
+
+  await analyzeCommand({ targetPath, format, minSeverity });
 }
 
 main().catch((err: unknown) => {

@@ -11,7 +11,50 @@ import {
   aggregateResults,
 } from "@docaudit/engine";
 import { formatJson, formatMarkdown, renderToConsole } from "@docaudit/reporter";
-import type { AnalysisResult } from "@docaudit/shared";
+import type { AnalysisResult, Severity } from "@docaudit/shared";
+
+// ─── Severity ordering ────────────────────────────────────────────────────────
+
+const SEVERITY_RANK: Record<Severity, number> = {
+  critical: 4,
+  high:     3,
+  medium:   2,
+  low:      1,
+  info:     0,
+};
+
+function filterBySeverity(
+  results: AnalysisResult[],
+  minSeverity: Severity
+): AnalysisResult[] {
+  const minRank = SEVERITY_RANK[minSeverity];
+
+  return results.map((result) => {
+    const filteredIssues = result.issues.filter(
+      (issue) => SEVERITY_RANK[issue.severity] >= minRank
+    );
+
+    if (filteredIssues.length === result.issues.length) {
+      return result;
+    }
+
+    // Rebuild summary for filtered issues
+    const summary = {
+      ...result.summary,
+      totalIssues:   filteredIssues.length,
+      criticalCount: filteredIssues.filter((i) => i.severity === "critical").length,
+      highCount:     filteredIssues.filter((i) => i.severity === "high").length,
+      mediumCount:   filteredIssues.filter((i) => i.severity === "medium").length,
+      lowCount:      filteredIssues.filter((i) => i.severity === "low").length,
+      infoCount:     filteredIssues.filter((i) => i.severity === "info").length,
+      topIssues:     filteredIssues
+        .filter((i) => i.severity === "critical" || i.severity === "high")
+        .slice(0, 5),
+    };
+
+    return { ...result, issues: filteredIssues, summary };
+  });
+}
 
 // ─── Helpers ──────────────────────────────────────────────────────────────────
 
@@ -33,10 +76,8 @@ async function analyzeFile(
   registry: AnalyzerRegistryImpl
 ): Promise<AnalysisResult> {
   const content = readFileSync(filePath, "utf-8");
-  const documentName = basename(filePath);
-
   return runPipeline(registry.getAll(), {
-    documentName,
+    documentName: basename(filePath),
     content,
   });
 }
@@ -46,6 +87,7 @@ async function analyzeFile(
 export interface AnalyzeOptions {
   readonly targetPath: string;
   readonly format?: "console" | "json" | "markdown" | undefined;
+  readonly minSeverity?: Severity | undefined;
 }
 
 export async function analyzeCommand(options: AnalyzeOptions): Promise<void> {
@@ -55,13 +97,11 @@ export async function analyzeCommand(options: AnalyzeOptions): Promise<void> {
     fail(`Path not found: ${targetPath}`);
   }
 
-  // ── Load config ─────────────────────────────────────────────────────────
   const configResult = await loadConfig(process.cwd());
   if (!configResult.success) {
     fail(`Configuration errors:\n  ${configResult.errors.join("\n  ")}`);
   }
 
-  // ── Build registry ──────────────────────────────────────────────────────
   const registry = buildRegistry();
 
   // ── Discover files ──────────────────────────────────────────────────────
@@ -70,11 +110,9 @@ export async function analyzeCommand(options: AnalyzeOptions): Promise<void> {
 
   if (stats.isDirectory()) {
     filePaths = discoverFiles(targetPath);
-
     if (filePaths.length === 0) {
       fail(`No document files found in: ${targetPath}`);
     }
-
     console.log(
       `\x1b[36mFound ${String(filePaths.length)} document(s) in ${targetPath}\x1b[0m\n`
     );
@@ -82,12 +120,18 @@ export async function analyzeCommand(options: AnalyzeOptions): Promise<void> {
     filePaths = [targetPath];
   }
 
-  // ── Analyze each file ──────────────────────────────────────────────────
-  const results: AnalysisResult[] = [];
-
+  // ── Analyze ─────────────────────────────────────────────────────────────
+  let results: AnalysisResult[] = [];
   for (const filePath of filePaths) {
-    const result = await analyzeFile(filePath, registry);
-    results.push(result);
+    results.push(await analyzeFile(filePath, registry));
+  }
+
+  // ── Apply severity filter ───────────────────────────────────────────────
+  if (options.minSeverity !== undefined) {
+    results = filterBySeverity(results, options.minSeverity);
+    console.log(
+      `\x1b[33mFiltering: showing ${options.minSeverity}+ severity only\x1b[0m\n`
+    );
   }
 
   // ── Output ──────────────────────────────────────────────────────────────
@@ -103,8 +147,6 @@ export async function analyzeCommand(options: AnalyzeOptions): Promise<void> {
     case "console":
     default:
       renderToConsole(results);
-
-      // Show aggregate summary for multi-file runs
       if (results.length > 1) {
         const agg = aggregateResults(results);
         console.log("\n\x1b[1m── Aggregate Summary ──\x1b[0m");
