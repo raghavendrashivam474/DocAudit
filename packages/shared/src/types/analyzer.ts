@@ -1,7 +1,6 @@
 ﻿import type { AnalysisIssue } from "./analysis.js";
 
 // ─── Runtime Analyzer Options ─────────────────────────────────────────────────
-// Named AnalyzerRunConfig to avoid collision with AnalyzerPluginConfig in config.ts
 
 export interface AnalyzerRunConfig {
   readonly enabled: boolean;
@@ -15,14 +14,14 @@ export interface AnalyzerContext {
   readonly documentId: string;
   readonly documentName: string;
   readonly content: string;
-  readonly metadata?: Record<string, unknown>;
+  readonly metadata?: Record<string, unknown> | undefined;
 }
 
 // ─── Analyzer Output ──────────────────────────────────────────────────────────
 
 export interface AnalyzerOutput {
   readonly issues: AnalysisIssue[];
-  readonly metadata?: Record<string, unknown>;
+  readonly metadata?: Record<string, unknown> | undefined;
 }
 
 // ─── Analyzer Interface ───────────────────────────────────────────────────────
