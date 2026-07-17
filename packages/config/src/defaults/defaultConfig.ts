@@ -8,4 +8,4 @@ export const defaultConfig: DocAuditConfig = {
   minSeverity: "info",
   verbose: false,
   analyzerOptions: {},
-} as const;
+};

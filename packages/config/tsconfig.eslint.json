@@ -5,8 +5,12 @@
     "rootDir": "src",
     "outDir": "dist",
     "types": ["node"],
-    "noEmit": true
+    "noEmit": true,
+    "composite": false
   },
+  "references": [
+    { "path": "../shared" }
+  ],
   "include": ["src/**/*.ts"],
   "exclude": ["node_modules", "dist"]
 }

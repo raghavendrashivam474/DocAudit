@@ -5,8 +5,15 @@
     "rootDir": "src",
     "outDir": "dist",
     "types": ["node"],
-    "noEmit": true
+    "noEmit": true,
+    "composite": false
   },
+  "references": [
+    { "path": "../../packages/shared" },
+    { "path": "../../packages/config" },
+    { "path": "../../packages/engine" },
+    { "path": "../../packages/reporter" }
+  ],
   "include": ["src/**/*.ts"],
   "exclude": ["node_modules", "dist"]
 }
