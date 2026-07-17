@@ -223,7 +223,7 @@ Contribution guidelines will be published as the project approaches its first st
 
 ## 👨‍💻 Maintainer
 
-Built and maintained by **Raghav**.
+Built and maintained by **Raghavendra Singh**.
 
 Passionate about building developer tools, productivity software, and scalable software systems.
 
