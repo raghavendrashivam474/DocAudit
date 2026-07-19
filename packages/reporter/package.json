@@ -1,34 +1,37 @@
 {
-  "name": "@docaudit/reporter",
-  "version": "0.1.0",
-  "private": true,
-  "description": "Report generation for DocAudit",
-  "type": "module",
-  "main": "./dist/index.js",
-  "types": "./dist/index.d.ts",
-  "exports": {
-    ".": {
-      "import": "./dist/index.js",
-      "types": "./dist/index.d.ts"
+    "name": "@docaudit/reporter",
+    "version": "0.1.0",
+    "private": true,
+    "description": "Report generation for DocAudit",
+    "type": "module",
+    "main": "./dist/index.js",
+    "types": "./dist/index.d.ts",
+    "exports": {
+        ".": {
+            "import": "./dist/index.js",
+            "types": "./dist/index.d.ts"
+        }
+    },
+    "scripts": {
+        "build": "tsc --project tsconfig.json",
+        "dev": "tsc --project tsconfig.json --watch",
+        "lint": "eslint src --ext .ts",
+        "lint:fix": "eslint src --ext .ts --fix",
+        "typecheck": "tsc --project tsconfig.json --noEmit",
+        "clean": "Remove-Item -Recurse -Force dist -ErrorAction SilentlyContinue",
+        "test": "vitest run --reporter=verbose",
+        "test:watch": "vitest --reporter=verbose"
+    },
+    "dependencies": {
+        "@docaudit/engine": "workspace:*",
+        "@docaudit/shared": "workspace:*"
+    },
+    "devDependencies": {
+        "@types/node": "^20.0.0",
+        "@typescript-eslint/eslint-plugin": "^7.0.0",
+        "@typescript-eslint/parser": "^7.0.0",
+        "eslint": "^8.57.0",
+        "typescript": "^5.4.0",
+        "vitest": "^2.0.0"
     }
-  },
-  "scripts": {
-    "build": "tsc --project tsconfig.json",
-    "dev": "tsc --project tsconfig.json --watch",
-    "lint": "eslint src --ext .ts",
-    "lint:fix": "eslint src --ext .ts --fix",
-    "typecheck": "tsc --project tsconfig.json --noEmit",
-    "clean": "Remove-Item -Recurse -Force dist -ErrorAction SilentlyContinue"
-  },
-  "dependencies": {
-    "@docaudit/shared": "workspace:*",
-    "@docaudit/engine": "workspace:*"
-  },
-  "devDependencies": {
-    "@types/node": "^20.0.0",
-    "@typescript-eslint/eslint-plugin": "^7.0.0",
-    "@typescript-eslint/parser": "^7.0.0",
-    "eslint": "^8.57.0",
-    "typescript": "^5.4.0"
-  }
 }
