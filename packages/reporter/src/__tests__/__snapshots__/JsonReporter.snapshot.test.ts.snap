@@ -1,0 +1,2289 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`JSON Reporter Snapshots > compact mode matches snapshot 1`] = `"{"schemaVersion":"1.0","generator":{"name":"docaudit","version":"0.1.0"},"generatedAt":"2026-01-01T00:00:00.000Z","documents":[{"documentId":"doc-1","documentName":"README.md","analyzedAt":"2026-01-01T00:00:00.000Z","durationMs":5.5,"score":{"overall":78,"categories":[],"grade":"C"},"summary":{"totalIssues":2,"criticalCount":0,"highCount":1,"mediumCount":1,"lowCount":0,"infoCount":0},"issues":[{"id":"iss-1","ruleId":"structure.missing-h1","severity":"high","category":"structure","title":"Missing H1 heading","description":"Document does not start with an H1 heading.","suggestion":"Add an H1 heading at the top of the document.","location":{"line":1}},{"id":"iss-2","ruleId":"clarity.placeholder-text","severity":"medium","category":"clarity","title":"Placeholder text detected","description":"Document contains TODO placeholder.","suggestion":"Replace placeholder with real content.","location":{"line":12}}],"recommendations":[{"id":"rec:structure.missing-h1","title":"Missing H1 heading","severity":"high","category":"structure","priority":75,"context":"A single H1 heading serves as the document title. Search engines and screen readers rely on a clear H1.","action":"Add an H1 heading at the top of the document.","hasTemplate":false,"relatedIssueIds":["iss-1"]},{"id":"rec:clarity.placeholder-text","title":"Placeholder text detected","severity":"medium","category":"clarity","priority":50,"context":"Placeholder text (TODO/FIXME/TBD/WIP) in published docs signals incompleteness and erodes reader trust.","action":"Replace placeholder with real content.","hasTemplate":false,"relatedIssueIds":["iss-2"]}],"prioritized":[{"rank":1,"priority":77.5,"reason":"severity=high (75), category=structure (weight=0.9)","issue":{"id":"iss-1","ruleId":"structure.missing-h1","severity":"high","category":"structure","title":"Missing H1 heading","description":"Document does not start with an H1 heading.","suggestion":"Add an H1 heading at the top of the document.","location":{"line":1}},"recommendationId":"rec:structure.missing-h1"},{"rank":2,"priority":55,"reason":"severity=medium (50), category=clarity (weight=0.6)","issue":{"id":"iss-2","ruleId":"clarity.placeholder-text","severity":"medium","category":"clarity","title":"Placeholder text detected","description":"Document contains TODO placeholder.","suggestion":"Replace placeholder with real content.","location":{"line":12}},"recommendationId":"rec:clarity.placeholder-text"}],"prioritySummary":{"total":2,"bySeverity":{"critical":0,"high":1,"medium":1,"low":0,"info":0},"byCategory":{"structure":1,"clarity":1},"topPriority":77.5}}],"aggregate":{"documentCount":1,"totalIssues":2,"averageScore":78}}"`;
+
+exports[`JSON Reporter Snapshots > matches snapshot for empty project 1`] = `
+"{
+  "schemaVersion": "1.0",
+  "generator": {
+    "name": "docaudit",
+    "version": "0.1.0"
+  },
+  "generatedAt": "2026-01-01T00:00:00.000Z",
+  "documents": [
+    {
+      "documentId": "doc-1",
+      "documentName": "test.md",
+      "analyzedAt": "2026-01-01T00:00:00.000Z",
+      "durationMs": 12.34,
+      "score": {
+        "overall": 100,
+        "categories": [],
+        "grade": "A"
+      },
+      "summary": {
+        "totalIssues": 0,
+        "criticalCount": 0,
+        "highCount": 0,
+        "mediumCount": 0,
+        "lowCount": 0,
+        "infoCount": 0
+      },
+      "issues": [],
+      "recommendations": [],
+      "prioritized": [],
+      "prioritySummary": {
+        "total": 0,
+        "bySeverity": {
+          "critical": 0,
+          "high": 0,
+          "medium": 0,
+          "low": 0,
+          "info": 0
+        },
+        "byCategory": {},
+        "topPriority": 0
+      }
+    }
+  ],
+  "aggregate": {
+    "documentCount": 1,
+    "totalIssues": 0,
+    "averageScore": 100
+  }
+}"
+`;
+
+exports[`JSON Reporter Snapshots > matches snapshot for large project 1`] = `
+"{
+  "schemaVersion": "1.0",
+  "generator": {
+    "name": "docaudit",
+    "version": "0.1.0"
+  },
+  "generatedAt": "2026-01-01T00:00:00.000Z",
+  "documents": [
+    {
+      "documentId": "doc-1",
+      "documentName": "CONTRIBUTING.md",
+      "analyzedAt": "2026-01-01T00:00:00.000Z",
+      "durationMs": 42.1,
+      "score": {
+        "overall": 45,
+        "categories": [],
+        "grade": "F"
+      },
+      "summary": {
+        "totalIssues": 50,
+        "criticalCount": 10,
+        "highCount": 10,
+        "mediumCount": 10,
+        "lowCount": 10,
+        "infoCount": 10
+      },
+      "issues": [
+        {
+          "id": "iss-0",
+          "ruleId": "rule.item-0",
+          "severity": "critical",
+          "category": "structure",
+          "title": "Issue 0",
+          "description": "Description for issue 0.",
+          "suggestion": "Fix issue 0."
+        },
+        {
+          "id": "iss-1",
+          "ruleId": "rule.item-1",
+          "severity": "high",
+          "category": "completeness",
+          "title": "Issue 1",
+          "description": "Description for issue 1.",
+          "suggestion": "Fix issue 1."
+        },
+        {
+          "id": "iss-2",
+          "ruleId": "rule.item-2",
+          "severity": "medium",
+          "category": "clarity",
+          "title": "Issue 2",
+          "description": "Description for issue 2.",
+          "suggestion": "Fix issue 2."
+        },
+        {
+          "id": "iss-3",
+          "ruleId": "rule.item-3",
+          "severity": "low",
+          "category": "accuracy",
+          "title": "Issue 3",
+          "description": "Description for issue 3.",
+          "suggestion": "Fix issue 3."
+        },
+        {
+          "id": "iss-4",
+          "ruleId": "rule.item-4",
+          "severity": "info",
+          "category": "consistency",
+          "title": "Issue 4",
+          "description": "Description for issue 4.",
+          "suggestion": "Fix issue 4."
+        },
+        {
+          "id": "iss-5",
+          "ruleId": "rule.item-5",
+          "severity": "critical",
+          "category": "compliance",
+          "title": "Issue 5",
+          "description": "Description for issue 5.",
+          "suggestion": "Fix issue 5."
+        },
+        {
+          "id": "iss-6",
+          "ruleId": "rule.item-6",
+          "severity": "high",
+          "category": "structure",
+          "title": "Issue 6",
+          "description": "Description for issue 6.",
+          "suggestion": "Fix issue 6."
+        },
+        {
+          "id": "iss-7",
+          "ruleId": "rule.item-7",
+          "severity": "medium",
+          "category": "completeness",
+          "title": "Issue 7",
+          "description": "Description for issue 7.",
+          "suggestion": "Fix issue 7."
+        },
+        {
+          "id": "iss-8",
+          "ruleId": "rule.item-8",
+          "severity": "low",
+          "category": "clarity",
+          "title": "Issue 8",
+          "description": "Description for issue 8.",
+          "suggestion": "Fix issue 8."
+        },
+        {
+          "id": "iss-9",
+          "ruleId": "rule.item-9",
+          "severity": "info",
+          "category": "accuracy",
+          "title": "Issue 9",
+          "description": "Description for issue 9.",
+          "suggestion": "Fix issue 9."
+        },
+        {
+          "id": "iss-10",
+          "ruleId": "rule.item-10",
+          "severity": "critical",
+          "category": "consistency",
+          "title": "Issue 10",
+          "description": "Description for issue 10.",
+          "suggestion": "Fix issue 10."
+        },
+        {
+          "id": "iss-11",
+          "ruleId": "rule.item-11",
+          "severity": "high",
+          "category": "compliance",
+          "title": "Issue 11",
+          "description": "Description for issue 11.",
+          "suggestion": "Fix issue 11."
+        },
+        {
+          "id": "iss-12",
+          "ruleId": "rule.item-12",
+          "severity": "medium",
+          "category": "structure",
+          "title": "Issue 12",
+          "description": "Description for issue 12.",
+          "suggestion": "Fix issue 12."
+        },
+        {
+          "id": "iss-13",
+          "ruleId": "rule.item-13",
+          "severity": "low",
+          "category": "completeness",
+          "title": "Issue 13",
+          "description": "Description for issue 13.",
+          "suggestion": "Fix issue 13."
+        },
+        {
+          "id": "iss-14",
+          "ruleId": "rule.item-14",
+          "severity": "info",
+          "category": "clarity",
+          "title": "Issue 14",
+          "description": "Description for issue 14.",
+          "suggestion": "Fix issue 14."
+        },
+        {
+          "id": "iss-15",
+          "ruleId": "rule.item-15",
+          "severity": "critical",
+          "category": "accuracy",
+          "title": "Issue 15",
+          "description": "Description for issue 15.",
+          "suggestion": "Fix issue 15."
+        },
+        {
+          "id": "iss-16",
+          "ruleId": "rule.item-16",
+          "severity": "high",
+          "category": "consistency",
+          "title": "Issue 16",
+          "description": "Description for issue 16.",
+          "suggestion": "Fix issue 16."
+        },
+        {
+          "id": "iss-17",
+          "ruleId": "rule.item-17",
+          "severity": "medium",
+          "category": "compliance",
+          "title": "Issue 17",
+          "description": "Description for issue 17.",
+          "suggestion": "Fix issue 17."
+        },
+        {
+          "id": "iss-18",
+          "ruleId": "rule.item-18",
+          "severity": "low",
+          "category": "structure",
+          "title": "Issue 18",
+          "description": "Description for issue 18.",
+          "suggestion": "Fix issue 18."
+        },
+        {
+          "id": "iss-19",
+          "ruleId": "rule.item-19",
+          "severity": "info",
+          "category": "completeness",
+          "title": "Issue 19",
+          "description": "Description for issue 19.",
+          "suggestion": "Fix issue 19."
+        },
+        {
+          "id": "iss-20",
+          "ruleId": "rule.item-20",
+          "severity": "critical",
+          "category": "clarity",
+          "title": "Issue 20",
+          "description": "Description for issue 20.",
+          "suggestion": "Fix issue 20."
+        },
+        {
+          "id": "iss-21",
+          "ruleId": "rule.item-21",
+          "severity": "high",
+          "category": "accuracy",
+          "title": "Issue 21",
+          "description": "Description for issue 21.",
+          "suggestion": "Fix issue 21."
+        },
+        {
+          "id": "iss-22",
+          "ruleId": "rule.item-22",
+          "severity": "medium",
+          "category": "consistency",
+          "title": "Issue 22",
+          "description": "Description for issue 22.",
+          "suggestion": "Fix issue 22."
+        },
+        {
+          "id": "iss-23",
+          "ruleId": "rule.item-23",
+          "severity": "low",
+          "category": "compliance",
+          "title": "Issue 23",
+          "description": "Description for issue 23.",
+          "suggestion": "Fix issue 23."
+        },
+        {
+          "id": "iss-24",
+          "ruleId": "rule.item-24",
+          "severity": "info",
+          "category": "structure",
+          "title": "Issue 24",
+          "description": "Description for issue 24.",
+          "suggestion": "Fix issue 24."
+        },
+        {
+          "id": "iss-25",
+          "ruleId": "rule.item-25",
+          "severity": "critical",
+          "category": "completeness",
+          "title": "Issue 25",
+          "description": "Description for issue 25.",
+          "suggestion": "Fix issue 25."
+        },
+        {
+          "id": "iss-26",
+          "ruleId": "rule.item-26",
+          "severity": "high",
+          "category": "clarity",
+          "title": "Issue 26",
+          "description": "Description for issue 26.",
+          "suggestion": "Fix issue 26."
+        },
+        {
+          "id": "iss-27",
+          "ruleId": "rule.item-27",
+          "severity": "medium",
+          "category": "accuracy",
+          "title": "Issue 27",
+          "description": "Description for issue 27.",
+          "suggestion": "Fix issue 27."
+        },
+        {
+          "id": "iss-28",
+          "ruleId": "rule.item-28",
+          "severity": "low",
+          "category": "consistency",
+          "title": "Issue 28",
+          "description": "Description for issue 28.",
+          "suggestion": "Fix issue 28."
+        },
+        {
+          "id": "iss-29",
+          "ruleId": "rule.item-29",
+          "severity": "info",
+          "category": "compliance",
+          "title": "Issue 29",
+          "description": "Description for issue 29.",
+          "suggestion": "Fix issue 29."
+        },
+        {
+          "id": "iss-30",
+          "ruleId": "rule.item-30",
+          "severity": "critical",
+          "category": "structure",
+          "title": "Issue 30",
+          "description": "Description for issue 30.",
+          "suggestion": "Fix issue 30."
+        },
+        {
+          "id": "iss-31",
+          "ruleId": "rule.item-31",
+          "severity": "high",
+          "category": "completeness",
+          "title": "Issue 31",
+          "description": "Description for issue 31.",
+          "suggestion": "Fix issue 31."
+        },
+        {
+          "id": "iss-32",
+          "ruleId": "rule.item-32",
+          "severity": "medium",
+          "category": "clarity",
+          "title": "Issue 32",
+          "description": "Description for issue 32.",
+          "suggestion": "Fix issue 32."
+        },
+        {
+          "id": "iss-33",
+          "ruleId": "rule.item-33",
+          "severity": "low",
+          "category": "accuracy",
+          "title": "Issue 33",
+          "description": "Description for issue 33.",
+          "suggestion": "Fix issue 33."
+        },
+        {
+          "id": "iss-34",
+          "ruleId": "rule.item-34",
+          "severity": "info",
+          "category": "consistency",
+          "title": "Issue 34",
+          "description": "Description for issue 34.",
+          "suggestion": "Fix issue 34."
+        },
+        {
+          "id": "iss-35",
+          "ruleId": "rule.item-35",
+          "severity": "critical",
+          "category": "compliance",
+          "title": "Issue 35",
+          "description": "Description for issue 35.",
+          "suggestion": "Fix issue 35."
+        },
+        {
+          "id": "iss-36",
+          "ruleId": "rule.item-36",
+          "severity": "high",
+          "category": "structure",
+          "title": "Issue 36",
+          "description": "Description for issue 36.",
+          "suggestion": "Fix issue 36."
+        },
+        {
+          "id": "iss-37",
+          "ruleId": "rule.item-37",
+          "severity": "medium",
+          "category": "completeness",
+          "title": "Issue 37",
+          "description": "Description for issue 37.",
+          "suggestion": "Fix issue 37."
+        },
+        {
+          "id": "iss-38",
+          "ruleId": "rule.item-38",
+          "severity": "low",
+          "category": "clarity",
+          "title": "Issue 38",
+          "description": "Description for issue 38.",
+          "suggestion": "Fix issue 38."
+        },
+        {
+          "id": "iss-39",
+          "ruleId": "rule.item-39",
+          "severity": "info",
+          "category": "accuracy",
+          "title": "Issue 39",
+          "description": "Description for issue 39.",
+          "suggestion": "Fix issue 39."
+        },
+        {
+          "id": "iss-40",
+          "ruleId": "rule.item-40",
+          "severity": "critical",
+          "category": "consistency",
+          "title": "Issue 40",
+          "description": "Description for issue 40.",
+          "suggestion": "Fix issue 40."
+        },
+        {
+          "id": "iss-41",
+          "ruleId": "rule.item-41",
+          "severity": "high",
+          "category": "compliance",
+          "title": "Issue 41",
+          "description": "Description for issue 41.",
+          "suggestion": "Fix issue 41."
+        },
+        {
+          "id": "iss-42",
+          "ruleId": "rule.item-42",
+          "severity": "medium",
+          "category": "structure",
+          "title": "Issue 42",
+          "description": "Description for issue 42.",
+          "suggestion": "Fix issue 42."
+        },
+        {
+          "id": "iss-43",
+          "ruleId": "rule.item-43",
+          "severity": "low",
+          "category": "completeness",
+          "title": "Issue 43",
+          "description": "Description for issue 43.",
+          "suggestion": "Fix issue 43."
+        },
+        {
+          "id": "iss-44",
+          "ruleId": "rule.item-44",
+          "severity": "info",
+          "category": "clarity",
+          "title": "Issue 44",
+          "description": "Description for issue 44.",
+          "suggestion": "Fix issue 44."
+        },
+        {
+          "id": "iss-45",
+          "ruleId": "rule.item-45",
+          "severity": "critical",
+          "category": "accuracy",
+          "title": "Issue 45",
+          "description": "Description for issue 45.",
+          "suggestion": "Fix issue 45."
+        },
+        {
+          "id": "iss-46",
+          "ruleId": "rule.item-46",
+          "severity": "high",
+          "category": "consistency",
+          "title": "Issue 46",
+          "description": "Description for issue 46.",
+          "suggestion": "Fix issue 46."
+        },
+        {
+          "id": "iss-47",
+          "ruleId": "rule.item-47",
+          "severity": "medium",
+          "category": "compliance",
+          "title": "Issue 47",
+          "description": "Description for issue 47.",
+          "suggestion": "Fix issue 47."
+        },
+        {
+          "id": "iss-48",
+          "ruleId": "rule.item-48",
+          "severity": "low",
+          "category": "structure",
+          "title": "Issue 48",
+          "description": "Description for issue 48.",
+          "suggestion": "Fix issue 48."
+        },
+        {
+          "id": "iss-49",
+          "ruleId": "rule.item-49",
+          "severity": "info",
+          "category": "completeness",
+          "title": "Issue 49",
+          "description": "Description for issue 49.",
+          "suggestion": "Fix issue 49."
+        }
+      ],
+      "recommendations": [
+        {
+          "id": "rec:rule.item-0",
+          "title": "Issue 0",
+          "severity": "critical",
+          "category": "structure",
+          "priority": 100,
+          "context": "Description for issue 0.",
+          "action": "Fix issue 0.",
+          "hasTemplate": false,
+          "relatedIssueIds": [
+            "iss-0"
+          ]
+        },
+        {
+          "id": "rec:rule.item-5",
+          "title": "Issue 5",
+          "severity": "critical",
+          "category": "compliance",
+          "priority": 100,
+          "context": "Description for issue 5.",
+          "action": "Fix issue 5.",
+          "hasTemplate": false,
+          "relatedIssueIds": [
+            "iss-5"
+          ]
+        },
+        {
+          "id": "rec:rule.item-10",
+          "title": "Issue 10",
+          "severity": "critical",
+          "category": "consistency",
+          "priority": 100,
+          "context": "Description for issue 10.",
+          "action": "Fix issue 10.",
+          "hasTemplate": false,
+          "relatedIssueIds": [
+            "iss-10"
+          ]
+        },
+        {
+          "id": "rec:rule.item-15",
+          "title": "Issue 15",
+          "severity": "critical",
+          "category": "accuracy",
+          "priority": 100,
+          "context": "Description for issue 15.",
+          "action": "Fix issue 15.",
+          "hasTemplate": false,
+          "relatedIssueIds": [
+            "iss-15"
+          ]
+        },
+        {
+          "id": "rec:rule.item-20",
+          "title": "Issue 20",
+          "severity": "critical",
+          "category": "clarity",
+          "priority": 100,
+          "context": "Description for issue 20.",
+          "action": "Fix issue 20.",
+          "hasTemplate": false,
+          "relatedIssueIds": [
+            "iss-20"
+          ]
+        },
+        {
+          "id": "rec:rule.item-25",
+          "title": "Issue 25",
+          "severity": "critical",
+          "category": "completeness",
+          "priority": 100,
+          "context": "Description for issue 25.",
+          "action": "Fix issue 25.",
+          "hasTemplate": false,
+          "relatedIssueIds": [
+            "iss-25"
+          ]
+        },
+        {
+          "id": "rec:rule.item-30",
+          "title": "Issue 30",
+          "severity": "critical",
+          "category": "structure",
+          "priority": 100,
+          "context": "Description for issue 30.",
+          "action": "Fix issue 30.",
+          "hasTemplate": false,
+          "relatedIssueIds": [
+            "iss-30"
+          ]
+        },
+        {
+          "id": "rec:rule.item-35",
+          "title": "Issue 35",
+          "severity": "critical",
+          "category": "compliance",
+          "priority": 100,
+          "context": "Description for issue 35.",
+          "action": "Fix issue 35.",
+          "hasTemplate": false,
+          "relatedIssueIds": [
+            "iss-35"
+          ]
+        },
+        {
+          "id": "rec:rule.item-40",
+          "title": "Issue 40",
+          "severity": "critical",
+          "category": "consistency",
+          "priority": 100,
+          "context": "Description for issue 40.",
+          "action": "Fix issue 40.",
+          "hasTemplate": false,
+          "relatedIssueIds": [
+            "iss-40"
+          ]
+        },
+        {
+          "id": "rec:rule.item-45",
+          "title": "Issue 45",
+          "severity": "critical",
+          "category": "accuracy",
+          "priority": 100,
+          "context": "Description for issue 45.",
+          "action": "Fix issue 45.",
+          "hasTemplate": false,
+          "relatedIssueIds": [
+            "iss-45"
+          ]
+        },
+        {
+          "id": "rec:rule.item-1",
+          "title": "Issue 1",
+          "severity": "high",
+          "category": "completeness",
+          "priority": 75,
+          "context": "Description for issue 1.",
+          "action": "Fix issue 1.",
+          "hasTemplate": false,
+          "relatedIssueIds": [
+            "iss-1"
+          ]
+        },
+        {
+          "id": "rec:rule.item-6",
+          "title": "Issue 6",
+          "severity": "high",
+          "category": "structure",
+          "priority": 75,
+          "context": "Description for issue 6.",
+          "action": "Fix issue 6.",
+          "hasTemplate": false,
+          "relatedIssueIds": [
+            "iss-6"
+          ]
+        },
+        {
+          "id": "rec:rule.item-11",
+          "title": "Issue 11",
+          "severity": "high",
+          "category": "compliance",
+          "priority": 75,
+          "context": "Description for issue 11.",
+          "action": "Fix issue 11.",
+          "hasTemplate": false,
+          "relatedIssueIds": [
+            "iss-11"
+          ]
+        },
+        {
+          "id": "rec:rule.item-16",
+          "title": "Issue 16",
+          "severity": "high",
+          "category": "consistency",
+          "priority": 75,
+          "context": "Description for issue 16.",
+          "action": "Fix issue 16.",
+          "hasTemplate": false,
+          "relatedIssueIds": [
+            "iss-16"
+          ]
+        },
+        {
+          "id": "rec:rule.item-21",
+          "title": "Issue 21",
+          "severity": "high",
+          "category": "accuracy",
+          "priority": 75,
+          "context": "Description for issue 21.",
+          "action": "Fix issue 21.",
+          "hasTemplate": false,
+          "relatedIssueIds": [
+            "iss-21"
+          ]
+        },
+        {
+          "id": "rec:rule.item-26",
+          "title": "Issue 26",
+          "severity": "high",
+          "category": "clarity",
+          "priority": 75,
+          "context": "Description for issue 26.",
+          "action": "Fix issue 26.",
+          "hasTemplate": false,
+          "relatedIssueIds": [
+            "iss-26"
+          ]
+        },
+        {
+          "id": "rec:rule.item-31",
+          "title": "Issue 31",
+          "severity": "high",
+          "category": "completeness",
+          "priority": 75,
+          "context": "Description for issue 31.",
+          "action": "Fix issue 31.",
+          "hasTemplate": false,
+          "relatedIssueIds": [
+            "iss-31"
+          ]
+        },
+        {
+          "id": "rec:rule.item-36",
+          "title": "Issue 36",
+          "severity": "high",
+          "category": "structure",
+          "priority": 75,
+          "context": "Description for issue 36.",
+          "action": "Fix issue 36.",
+          "hasTemplate": false,
+          "relatedIssueIds": [
+            "iss-36"
+          ]
+        },
+        {
+          "id": "rec:rule.item-41",
+          "title": "Issue 41",
+          "severity": "high",
+          "category": "compliance",
+          "priority": 75,
+          "context": "Description for issue 41.",
+          "action": "Fix issue 41.",
+          "hasTemplate": false,
+          "relatedIssueIds": [
+            "iss-41"
+          ]
+        },
+        {
+          "id": "rec:rule.item-46",
+          "title": "Issue 46",
+          "severity": "high",
+          "category": "consistency",
+          "priority": 75,
+          "context": "Description for issue 46.",
+          "action": "Fix issue 46.",
+          "hasTemplate": false,
+          "relatedIssueIds": [
+            "iss-46"
+          ]
+        },
+        {
+          "id": "rec:rule.item-2",
+          "title": "Issue 2",
+          "severity": "medium",
+          "category": "clarity",
+          "priority": 50,
+          "context": "Description for issue 2.",
+          "action": "Fix issue 2.",
+          "hasTemplate": false,
+          "relatedIssueIds": [
+            "iss-2"
+          ]
+        },
+        {
+          "id": "rec:rule.item-7",
+          "title": "Issue 7",
+          "severity": "medium",
+          "category": "completeness",
+          "priority": 50,
+          "context": "Description for issue 7.",
+          "action": "Fix issue 7.",
+          "hasTemplate": false,
+          "relatedIssueIds": [
+            "iss-7"
+          ]
+        },
+        {
+          "id": "rec:rule.item-12",
+          "title": "Issue 12",
+          "severity": "medium",
+          "category": "structure",
+          "priority": 50,
+          "context": "Description for issue 12.",
+          "action": "Fix issue 12.",
+          "hasTemplate": false,
+          "relatedIssueIds": [
+            "iss-12"
+          ]
+        },
+        {
+          "id": "rec:rule.item-17",
+          "title": "Issue 17",
+          "severity": "medium",
+          "category": "compliance",
+          "priority": 50,
+          "context": "Description for issue 17.",
+          "action": "Fix issue 17.",
+          "hasTemplate": false,
+          "relatedIssueIds": [
+            "iss-17"
+          ]
+        },
+        {
+          "id": "rec:rule.item-22",
+          "title": "Issue 22",
+          "severity": "medium",
+          "category": "consistency",
+          "priority": 50,
+          "context": "Description for issue 22.",
+          "action": "Fix issue 22.",
+          "hasTemplate": false,
+          "relatedIssueIds": [
+            "iss-22"
+          ]
+        },
+        {
+          "id": "rec:rule.item-27",
+          "title": "Issue 27",
+          "severity": "medium",
+          "category": "accuracy",
+          "priority": 50,
+          "context": "Description for issue 27.",
+          "action": "Fix issue 27.",
+          "hasTemplate": false,
+          "relatedIssueIds": [
+            "iss-27"
+          ]
+        },
+        {
+          "id": "rec:rule.item-32",
+          "title": "Issue 32",
+          "severity": "medium",
+          "category": "clarity",
+          "priority": 50,
+          "context": "Description for issue 32.",
+          "action": "Fix issue 32.",
+          "hasTemplate": false,
+          "relatedIssueIds": [
+            "iss-32"
+          ]
+        },
+        {
+          "id": "rec:rule.item-37",
+          "title": "Issue 37",
+          "severity": "medium",
+          "category": "completeness",
+          "priority": 50,
+          "context": "Description for issue 37.",
+          "action": "Fix issue 37.",
+          "hasTemplate": false,
+          "relatedIssueIds": [
+            "iss-37"
+          ]
+        },
+        {
+          "id": "rec:rule.item-42",
+          "title": "Issue 42",
+          "severity": "medium",
+          "category": "structure",
+          "priority": 50,
+          "context": "Description for issue 42.",
+          "action": "Fix issue 42.",
+          "hasTemplate": false,
+          "relatedIssueIds": [
+            "iss-42"
+          ]
+        },
+        {
+          "id": "rec:rule.item-47",
+          "title": "Issue 47",
+          "severity": "medium",
+          "category": "compliance",
+          "priority": 50,
+          "context": "Description for issue 47.",
+          "action": "Fix issue 47.",
+          "hasTemplate": false,
+          "relatedIssueIds": [
+            "iss-47"
+          ]
+        },
+        {
+          "id": "rec:rule.item-3",
+          "title": "Issue 3",
+          "severity": "low",
+          "category": "accuracy",
+          "priority": 25,
+          "context": "Description for issue 3.",
+          "action": "Fix issue 3.",
+          "hasTemplate": false,
+          "relatedIssueIds": [
+            "iss-3"
+          ]
+        },
+        {
+          "id": "rec:rule.item-8",
+          "title": "Issue 8",
+          "severity": "low",
+          "category": "clarity",
+          "priority": 25,
+          "context": "Description for issue 8.",
+          "action": "Fix issue 8.",
+          "hasTemplate": false,
+          "relatedIssueIds": [
+            "iss-8"
+          ]
+        },
+        {
+          "id": "rec:rule.item-13",
+          "title": "Issue 13",
+          "severity": "low",
+          "category": "completeness",
+          "priority": 25,
+          "context": "Description for issue 13.",
+          "action": "Fix issue 13.",
+          "hasTemplate": false,
+          "relatedIssueIds": [
+            "iss-13"
+          ]
+        },
+        {
+          "id": "rec:rule.item-18",
+          "title": "Issue 18",
+          "severity": "low",
+          "category": "structure",
+          "priority": 25,
+          "context": "Description for issue 18.",
+          "action": "Fix issue 18.",
+          "hasTemplate": false,
+          "relatedIssueIds": [
+            "iss-18"
+          ]
+        },
+        {
+          "id": "rec:rule.item-23",
+          "title": "Issue 23",
+          "severity": "low",
+          "category": "compliance",
+          "priority": 25,
+          "context": "Description for issue 23.",
+          "action": "Fix issue 23.",
+          "hasTemplate": false,
+          "relatedIssueIds": [
+            "iss-23"
+          ]
+        },
+        {
+          "id": "rec:rule.item-28",
+          "title": "Issue 28",
+          "severity": "low",
+          "category": "consistency",
+          "priority": 25,
+          "context": "Description for issue 28.",
+          "action": "Fix issue 28.",
+          "hasTemplate": false,
+          "relatedIssueIds": [
+            "iss-28"
+          ]
+        },
+        {
+          "id": "rec:rule.item-33",
+          "title": "Issue 33",
+          "severity": "low",
+          "category": "accuracy",
+          "priority": 25,
+          "context": "Description for issue 33.",
+          "action": "Fix issue 33.",
+          "hasTemplate": false,
+          "relatedIssueIds": [
+            "iss-33"
+          ]
+        },
+        {
+          "id": "rec:rule.item-38",
+          "title": "Issue 38",
+          "severity": "low",
+          "category": "clarity",
+          "priority": 25,
+          "context": "Description for issue 38.",
+          "action": "Fix issue 38.",
+          "hasTemplate": false,
+          "relatedIssueIds": [
+            "iss-38"
+          ]
+        },
+        {
+          "id": "rec:rule.item-43",
+          "title": "Issue 43",
+          "severity": "low",
+          "category": "completeness",
+          "priority": 25,
+          "context": "Description for issue 43.",
+          "action": "Fix issue 43.",
+          "hasTemplate": false,
+          "relatedIssueIds": [
+            "iss-43"
+          ]
+        },
+        {
+          "id": "rec:rule.item-48",
+          "title": "Issue 48",
+          "severity": "low",
+          "category": "structure",
+          "priority": 25,
+          "context": "Description for issue 48.",
+          "action": "Fix issue 48.",
+          "hasTemplate": false,
+          "relatedIssueIds": [
+            "iss-48"
+          ]
+        },
+        {
+          "id": "rec:rule.item-4",
+          "title": "Issue 4",
+          "severity": "info",
+          "category": "consistency",
+          "priority": 5,
+          "context": "Description for issue 4.",
+          "action": "Fix issue 4.",
+          "hasTemplate": false,
+          "relatedIssueIds": [
+            "iss-4"
+          ]
+        },
+        {
+          "id": "rec:rule.item-9",
+          "title": "Issue 9",
+          "severity": "info",
+          "category": "accuracy",
+          "priority": 5,
+          "context": "Description for issue 9.",
+          "action": "Fix issue 9.",
+          "hasTemplate": false,
+          "relatedIssueIds": [
+            "iss-9"
+          ]
+        },
+        {
+          "id": "rec:rule.item-14",
+          "title": "Issue 14",
+          "severity": "info",
+          "category": "clarity",
+          "priority": 5,
+          "context": "Description for issue 14.",
+          "action": "Fix issue 14.",
+          "hasTemplate": false,
+          "relatedIssueIds": [
+            "iss-14"
+          ]
+        },
+        {
+          "id": "rec:rule.item-19",
+          "title": "Issue 19",
+          "severity": "info",
+          "category": "completeness",
+          "priority": 5,
+          "context": "Description for issue 19.",
+          "action": "Fix issue 19.",
+          "hasTemplate": false,
+          "relatedIssueIds": [
+            "iss-19"
+          ]
+        },
+        {
+          "id": "rec:rule.item-24",
+          "title": "Issue 24",
+          "severity": "info",
+          "category": "structure",
+          "priority": 5,
+          "context": "Description for issue 24.",
+          "action": "Fix issue 24.",
+          "hasTemplate": false,
+          "relatedIssueIds": [
+            "iss-24"
+          ]
+        },
+        {
+          "id": "rec:rule.item-29",
+          "title": "Issue 29",
+          "severity": "info",
+          "category": "compliance",
+          "priority": 5,
+          "context": "Description for issue 29.",
+          "action": "Fix issue 29.",
+          "hasTemplate": false,
+          "relatedIssueIds": [
+            "iss-29"
+          ]
+        },
+        {
+          "id": "rec:rule.item-34",
+          "title": "Issue 34",
+          "severity": "info",
+          "category": "consistency",
+          "priority": 5,
+          "context": "Description for issue 34.",
+          "action": "Fix issue 34.",
+          "hasTemplate": false,
+          "relatedIssueIds": [
+            "iss-34"
+          ]
+        },
+        {
+          "id": "rec:rule.item-39",
+          "title": "Issue 39",
+          "severity": "info",
+          "category": "accuracy",
+          "priority": 5,
+          "context": "Description for issue 39.",
+          "action": "Fix issue 39.",
+          "hasTemplate": false,
+          "relatedIssueIds": [
+            "iss-39"
+          ]
+        },
+        {
+          "id": "rec:rule.item-44",
+          "title": "Issue 44",
+          "severity": "info",
+          "category": "clarity",
+          "priority": 5,
+          "context": "Description for issue 44.",
+          "action": "Fix issue 44.",
+          "hasTemplate": false,
+          "relatedIssueIds": [
+            "iss-44"
+          ]
+        },
+        {
+          "id": "rec:rule.item-49",
+          "title": "Issue 49",
+          "severity": "info",
+          "category": "completeness",
+          "priority": 5,
+          "context": "Description for issue 49.",
+          "action": "Fix issue 49.",
+          "hasTemplate": false,
+          "relatedIssueIds": [
+            "iss-49"
+          ]
+        }
+      ],
+      "prioritized": [
+        {
+          "rank": 1,
+          "priority": 95,
+          "reason": "severity=critical (100), category=completeness (weight=1)",
+          "issue": {
+            "id": "iss-25",
+            "ruleId": "rule.item-25",
+            "severity": "critical",
+            "category": "completeness",
+            "title": "Issue 25",
+            "description": "Description for issue 25.",
+            "suggestion": "Fix issue 25."
+          },
+          "recommendationId": "rec:rule.item-25"
+        },
+        {
+          "rank": 2,
+          "priority": 92.5,
+          "reason": "severity=critical (100), category=structure (weight=0.9)",
+          "issue": {
+            "id": "iss-0",
+            "ruleId": "rule.item-0",
+            "severity": "critical",
+            "category": "structure",
+            "title": "Issue 0",
+            "description": "Description for issue 0.",
+            "suggestion": "Fix issue 0."
+          },
+          "recommendationId": "rec:rule.item-0"
+        },
+        {
+          "rank": 3,
+          "priority": 92.5,
+          "reason": "severity=critical (100), category=accuracy (weight=0.9)",
+          "issue": {
+            "id": "iss-15",
+            "ruleId": "rule.item-15",
+            "severity": "critical",
+            "category": "accuracy",
+            "title": "Issue 15",
+            "description": "Description for issue 15.",
+            "suggestion": "Fix issue 15."
+          },
+          "recommendationId": "rec:rule.item-15"
+        },
+        {
+          "rank": 4,
+          "priority": 92.5,
+          "reason": "severity=critical (100), category=structure (weight=0.9)",
+          "issue": {
+            "id": "iss-30",
+            "ruleId": "rule.item-30",
+            "severity": "critical",
+            "category": "structure",
+            "title": "Issue 30",
+            "description": "Description for issue 30.",
+            "suggestion": "Fix issue 30."
+          },
+          "recommendationId": "rec:rule.item-30"
+        },
+        {
+          "rank": 5,
+          "priority": 92.5,
+          "reason": "severity=critical (100), category=accuracy (weight=0.9)",
+          "issue": {
+            "id": "iss-45",
+            "ruleId": "rule.item-45",
+            "severity": "critical",
+            "category": "accuracy",
+            "title": "Issue 45",
+            "description": "Description for issue 45.",
+            "suggestion": "Fix issue 45."
+          },
+          "recommendationId": "rec:rule.item-45"
+        },
+        {
+          "rank": 6,
+          "priority": 90,
+          "reason": "severity=critical (100), category=compliance (weight=0.8)",
+          "issue": {
+            "id": "iss-35",
+            "ruleId": "rule.item-35",
+            "severity": "critical",
+            "category": "compliance",
+            "title": "Issue 35",
+            "description": "Description for issue 35.",
+            "suggestion": "Fix issue 35."
+          },
+          "recommendationId": "rec:rule.item-35"
+        },
+        {
+          "rank": 7,
+          "priority": 90,
+          "reason": "severity=critical (100), category=compliance (weight=0.8)",
+          "issue": {
+            "id": "iss-5",
+            "ruleId": "rule.item-5",
+            "severity": "critical",
+            "category": "compliance",
+            "title": "Issue 5",
+            "description": "Description for issue 5.",
+            "suggestion": "Fix issue 5."
+          },
+          "recommendationId": "rec:rule.item-5"
+        },
+        {
+          "rank": 8,
+          "priority": 87.5,
+          "reason": "severity=critical (100), category=consistency (weight=0.7)",
+          "issue": {
+            "id": "iss-10",
+            "ruleId": "rule.item-10",
+            "severity": "critical",
+            "category": "consistency",
+            "title": "Issue 10",
+            "description": "Description for issue 10.",
+            "suggestion": "Fix issue 10."
+          },
+          "recommendationId": "rec:rule.item-10"
+        },
+        {
+          "rank": 9,
+          "priority": 87.5,
+          "reason": "severity=critical (100), category=consistency (weight=0.7)",
+          "issue": {
+            "id": "iss-40",
+            "ruleId": "rule.item-40",
+            "severity": "critical",
+            "category": "consistency",
+            "title": "Issue 40",
+            "description": "Description for issue 40.",
+            "suggestion": "Fix issue 40."
+          },
+          "recommendationId": "rec:rule.item-40"
+        },
+        {
+          "rank": 10,
+          "priority": 85,
+          "reason": "severity=critical (100), category=clarity (weight=0.6)",
+          "issue": {
+            "id": "iss-20",
+            "ruleId": "rule.item-20",
+            "severity": "critical",
+            "category": "clarity",
+            "title": "Issue 20",
+            "description": "Description for issue 20.",
+            "suggestion": "Fix issue 20."
+          },
+          "recommendationId": "rec:rule.item-20"
+        },
+        {
+          "rank": 11,
+          "priority": 80,
+          "reason": "severity=high (75), category=completeness (weight=1)",
+          "issue": {
+            "id": "iss-1",
+            "ruleId": "rule.item-1",
+            "severity": "high",
+            "category": "completeness",
+            "title": "Issue 1",
+            "description": "Description for issue 1.",
+            "suggestion": "Fix issue 1."
+          },
+          "recommendationId": "rec:rule.item-1"
+        },
+        {
+          "rank": 12,
+          "priority": 80,
+          "reason": "severity=high (75), category=completeness (weight=1)",
+          "issue": {
+            "id": "iss-31",
+            "ruleId": "rule.item-31",
+            "severity": "high",
+            "category": "completeness",
+            "title": "Issue 31",
+            "description": "Description for issue 31.",
+            "suggestion": "Fix issue 31."
+          },
+          "recommendationId": "rec:rule.item-31"
+        },
+        {
+          "rank": 13,
+          "priority": 77.5,
+          "reason": "severity=high (75), category=accuracy (weight=0.9)",
+          "issue": {
+            "id": "iss-21",
+            "ruleId": "rule.item-21",
+            "severity": "high",
+            "category": "accuracy",
+            "title": "Issue 21",
+            "description": "Description for issue 21.",
+            "suggestion": "Fix issue 21."
+          },
+          "recommendationId": "rec:rule.item-21"
+        },
+        {
+          "rank": 14,
+          "priority": 77.5,
+          "reason": "severity=high (75), category=structure (weight=0.9)",
+          "issue": {
+            "id": "iss-36",
+            "ruleId": "rule.item-36",
+            "severity": "high",
+            "category": "structure",
+            "title": "Issue 36",
+            "description": "Description for issue 36.",
+            "suggestion": "Fix issue 36."
+          },
+          "recommendationId": "rec:rule.item-36"
+        },
+        {
+          "rank": 15,
+          "priority": 77.5,
+          "reason": "severity=high (75), category=structure (weight=0.9)",
+          "issue": {
+            "id": "iss-6",
+            "ruleId": "rule.item-6",
+            "severity": "high",
+            "category": "structure",
+            "title": "Issue 6",
+            "description": "Description for issue 6.",
+            "suggestion": "Fix issue 6."
+          },
+          "recommendationId": "rec:rule.item-6"
+        },
+        {
+          "rank": 16,
+          "priority": 75,
+          "reason": "severity=high (75), category=compliance (weight=0.8)",
+          "issue": {
+            "id": "iss-11",
+            "ruleId": "rule.item-11",
+            "severity": "high",
+            "category": "compliance",
+            "title": "Issue 11",
+            "description": "Description for issue 11.",
+            "suggestion": "Fix issue 11."
+          },
+          "recommendationId": "rec:rule.item-11"
+        },
+        {
+          "rank": 17,
+          "priority": 75,
+          "reason": "severity=high (75), category=compliance (weight=0.8)",
+          "issue": {
+            "id": "iss-41",
+            "ruleId": "rule.item-41",
+            "severity": "high",
+            "category": "compliance",
+            "title": "Issue 41",
+            "description": "Description for issue 41.",
+            "suggestion": "Fix issue 41."
+          },
+          "recommendationId": "rec:rule.item-41"
+        },
+        {
+          "rank": 18,
+          "priority": 72.5,
+          "reason": "severity=high (75), category=consistency (weight=0.7)",
+          "issue": {
+            "id": "iss-16",
+            "ruleId": "rule.item-16",
+            "severity": "high",
+            "category": "consistency",
+            "title": "Issue 16",
+            "description": "Description for issue 16.",
+            "suggestion": "Fix issue 16."
+          },
+          "recommendationId": "rec:rule.item-16"
+        },
+        {
+          "rank": 19,
+          "priority": 72.5,
+          "reason": "severity=high (75), category=consistency (weight=0.7)",
+          "issue": {
+            "id": "iss-46",
+            "ruleId": "rule.item-46",
+            "severity": "high",
+            "category": "consistency",
+            "title": "Issue 46",
+            "description": "Description for issue 46.",
+            "suggestion": "Fix issue 46."
+          },
+          "recommendationId": "rec:rule.item-46"
+        },
+        {
+          "rank": 20,
+          "priority": 70,
+          "reason": "severity=high (75), category=clarity (weight=0.6)",
+          "issue": {
+            "id": "iss-26",
+            "ruleId": "rule.item-26",
+            "severity": "high",
+            "category": "clarity",
+            "title": "Issue 26",
+            "description": "Description for issue 26.",
+            "suggestion": "Fix issue 26."
+          },
+          "recommendationId": "rec:rule.item-26"
+        },
+        {
+          "rank": 21,
+          "priority": 65,
+          "reason": "severity=medium (50), category=completeness (weight=1)",
+          "issue": {
+            "id": "iss-37",
+            "ruleId": "rule.item-37",
+            "severity": "medium",
+            "category": "completeness",
+            "title": "Issue 37",
+            "description": "Description for issue 37.",
+            "suggestion": "Fix issue 37."
+          },
+          "recommendationId": "rec:rule.item-37"
+        },
+        {
+          "rank": 22,
+          "priority": 65,
+          "reason": "severity=medium (50), category=completeness (weight=1)",
+          "issue": {
+            "id": "iss-7",
+            "ruleId": "rule.item-7",
+            "severity": "medium",
+            "category": "completeness",
+            "title": "Issue 7",
+            "description": "Description for issue 7.",
+            "suggestion": "Fix issue 7."
+          },
+          "recommendationId": "rec:rule.item-7"
+        },
+        {
+          "rank": 23,
+          "priority": 62.5,
+          "reason": "severity=medium (50), category=structure (weight=0.9)",
+          "issue": {
+            "id": "iss-12",
+            "ruleId": "rule.item-12",
+            "severity": "medium",
+            "category": "structure",
+            "title": "Issue 12",
+            "description": "Description for issue 12.",
+            "suggestion": "Fix issue 12."
+          },
+          "recommendationId": "rec:rule.item-12"
+        },
+        {
+          "rank": 24,
+          "priority": 62.5,
+          "reason": "severity=medium (50), category=accuracy (weight=0.9)",
+          "issue": {
+            "id": "iss-27",
+            "ruleId": "rule.item-27",
+            "severity": "medium",
+            "category": "accuracy",
+            "title": "Issue 27",
+            "description": "Description for issue 27.",
+            "suggestion": "Fix issue 27."
+          },
+          "recommendationId": "rec:rule.item-27"
+        },
+        {
+          "rank": 25,
+          "priority": 62.5,
+          "reason": "severity=medium (50), category=structure (weight=0.9)",
+          "issue": {
+            "id": "iss-42",
+            "ruleId": "rule.item-42",
+            "severity": "medium",
+            "category": "structure",
+            "title": "Issue 42",
+            "description": "Description for issue 42.",
+            "suggestion": "Fix issue 42."
+          },
+          "recommendationId": "rec:rule.item-42"
+        },
+        {
+          "rank": 26,
+          "priority": 60,
+          "reason": "severity=medium (50), category=compliance (weight=0.8)",
+          "issue": {
+            "id": "iss-17",
+            "ruleId": "rule.item-17",
+            "severity": "medium",
+            "category": "compliance",
+            "title": "Issue 17",
+            "description": "Description for issue 17.",
+            "suggestion": "Fix issue 17."
+          },
+          "recommendationId": "rec:rule.item-17"
+        },
+        {
+          "rank": 27,
+          "priority": 60,
+          "reason": "severity=medium (50), category=compliance (weight=0.8)",
+          "issue": {
+            "id": "iss-47",
+            "ruleId": "rule.item-47",
+            "severity": "medium",
+            "category": "compliance",
+            "title": "Issue 47",
+            "description": "Description for issue 47.",
+            "suggestion": "Fix issue 47."
+          },
+          "recommendationId": "rec:rule.item-47"
+        },
+        {
+          "rank": 28,
+          "priority": 57.5,
+          "reason": "severity=medium (50), category=consistency (weight=0.7)",
+          "issue": {
+            "id": "iss-22",
+            "ruleId": "rule.item-22",
+            "severity": "medium",
+            "category": "consistency",
+            "title": "Issue 22",
+            "description": "Description for issue 22.",
+            "suggestion": "Fix issue 22."
+          },
+          "recommendationId": "rec:rule.item-22"
+        },
+        {
+          "rank": 29,
+          "priority": 55,
+          "reason": "severity=medium (50), category=clarity (weight=0.6)",
+          "issue": {
+            "id": "iss-2",
+            "ruleId": "rule.item-2",
+            "severity": "medium",
+            "category": "clarity",
+            "title": "Issue 2",
+            "description": "Description for issue 2.",
+            "suggestion": "Fix issue 2."
+          },
+          "recommendationId": "rec:rule.item-2"
+        },
+        {
+          "rank": 30,
+          "priority": 55,
+          "reason": "severity=medium (50), category=clarity (weight=0.6)",
+          "issue": {
+            "id": "iss-32",
+            "ruleId": "rule.item-32",
+            "severity": "medium",
+            "category": "clarity",
+            "title": "Issue 32",
+            "description": "Description for issue 32.",
+            "suggestion": "Fix issue 32."
+          },
+          "recommendationId": "rec:rule.item-32"
+        },
+        {
+          "rank": 31,
+          "priority": 50,
+          "reason": "severity=low (25), category=completeness (weight=1)",
+          "issue": {
+            "id": "iss-13",
+            "ruleId": "rule.item-13",
+            "severity": "low",
+            "category": "completeness",
+            "title": "Issue 13",
+            "description": "Description for issue 13.",
+            "suggestion": "Fix issue 13."
+          },
+          "recommendationId": "rec:rule.item-13"
+        },
+        {
+          "rank": 32,
+          "priority": 50,
+          "reason": "severity=low (25), category=completeness (weight=1)",
+          "issue": {
+            "id": "iss-43",
+            "ruleId": "rule.item-43",
+            "severity": "low",
+            "category": "completeness",
+            "title": "Issue 43",
+            "description": "Description for issue 43.",
+            "suggestion": "Fix issue 43."
+          },
+          "recommendationId": "rec:rule.item-43"
+        },
+        {
+          "rank": 33,
+          "priority": 47.5,
+          "reason": "severity=low (25), category=structure (weight=0.9)",
+          "issue": {
+            "id": "iss-18",
+            "ruleId": "rule.item-18",
+            "severity": "low",
+            "category": "structure",
+            "title": "Issue 18",
+            "description": "Description for issue 18.",
+            "suggestion": "Fix issue 18."
+          },
+          "recommendationId": "rec:rule.item-18"
+        },
+        {
+          "rank": 34,
+          "priority": 47.5,
+          "reason": "severity=low (25), category=accuracy (weight=0.9)",
+          "issue": {
+            "id": "iss-3",
+            "ruleId": "rule.item-3",
+            "severity": "low",
+            "category": "accuracy",
+            "title": "Issue 3",
+            "description": "Description for issue 3.",
+            "suggestion": "Fix issue 3."
+          },
+          "recommendationId": "rec:rule.item-3"
+        },
+        {
+          "rank": 35,
+          "priority": 47.5,
+          "reason": "severity=low (25), category=accuracy (weight=0.9)",
+          "issue": {
+            "id": "iss-33",
+            "ruleId": "rule.item-33",
+            "severity": "low",
+            "category": "accuracy",
+            "title": "Issue 33",
+            "description": "Description for issue 33.",
+            "suggestion": "Fix issue 33."
+          },
+          "recommendationId": "rec:rule.item-33"
+        },
+        {
+          "rank": 36,
+          "priority": 47.5,
+          "reason": "severity=low (25), category=structure (weight=0.9)",
+          "issue": {
+            "id": "iss-48",
+            "ruleId": "rule.item-48",
+            "severity": "low",
+            "category": "structure",
+            "title": "Issue 48",
+            "description": "Description for issue 48.",
+            "suggestion": "Fix issue 48."
+          },
+          "recommendationId": "rec:rule.item-48"
+        },
+        {
+          "rank": 37,
+          "priority": 45,
+          "reason": "severity=low (25), category=compliance (weight=0.8)",
+          "issue": {
+            "id": "iss-23",
+            "ruleId": "rule.item-23",
+            "severity": "low",
+            "category": "compliance",
+            "title": "Issue 23",
+            "description": "Description for issue 23.",
+            "suggestion": "Fix issue 23."
+          },
+          "recommendationId": "rec:rule.item-23"
+        },
+        {
+          "rank": 38,
+          "priority": 42.5,
+          "reason": "severity=low (25), category=consistency (weight=0.7)",
+          "issue": {
+            "id": "iss-28",
+            "ruleId": "rule.item-28",
+            "severity": "low",
+            "category": "consistency",
+            "title": "Issue 28",
+            "description": "Description for issue 28.",
+            "suggestion": "Fix issue 28."
+          },
+          "recommendationId": "rec:rule.item-28"
+        },
+        {
+          "rank": 39,
+          "priority": 40,
+          "reason": "severity=low (25), category=clarity (weight=0.6)",
+          "issue": {
+            "id": "iss-38",
+            "ruleId": "rule.item-38",
+            "severity": "low",
+            "category": "clarity",
+            "title": "Issue 38",
+            "description": "Description for issue 38.",
+            "suggestion": "Fix issue 38."
+          },
+          "recommendationId": "rec:rule.item-38"
+        },
+        {
+          "rank": 40,
+          "priority": 40,
+          "reason": "severity=low (25), category=clarity (weight=0.6)",
+          "issue": {
+            "id": "iss-8",
+            "ruleId": "rule.item-8",
+            "severity": "low",
+            "category": "clarity",
+            "title": "Issue 8",
+            "description": "Description for issue 8.",
+            "suggestion": "Fix issue 8."
+          },
+          "recommendationId": "rec:rule.item-8"
+        },
+        {
+          "rank": 41,
+          "priority": 38,
+          "reason": "severity=info (5), category=completeness (weight=1)",
+          "issue": {
+            "id": "iss-19",
+            "ruleId": "rule.item-19",
+            "severity": "info",
+            "category": "completeness",
+            "title": "Issue 19",
+            "description": "Description for issue 19.",
+            "suggestion": "Fix issue 19."
+          },
+          "recommendationId": "rec:rule.item-19"
+        },
+        {
+          "rank": 42,
+          "priority": 38,
+          "reason": "severity=info (5), category=completeness (weight=1)",
+          "issue": {
+            "id": "iss-49",
+            "ruleId": "rule.item-49",
+            "severity": "info",
+            "category": "completeness",
+            "title": "Issue 49",
+            "description": "Description for issue 49.",
+            "suggestion": "Fix issue 49."
+          },
+          "recommendationId": "rec:rule.item-49"
+        },
+        {
+          "rank": 43,
+          "priority": 35.5,
+          "reason": "severity=info (5), category=structure (weight=0.9)",
+          "issue": {
+            "id": "iss-24",
+            "ruleId": "rule.item-24",
+            "severity": "info",
+            "category": "structure",
+            "title": "Issue 24",
+            "description": "Description for issue 24.",
+            "suggestion": "Fix issue 24."
+          },
+          "recommendationId": "rec:rule.item-24"
+        },
+        {
+          "rank": 44,
+          "priority": 35.5,
+          "reason": "severity=info (5), category=accuracy (weight=0.9)",
+          "issue": {
+            "id": "iss-39",
+            "ruleId": "rule.item-39",
+            "severity": "info",
+            "category": "accuracy",
+            "title": "Issue 39",
+            "description": "Description for issue 39.",
+            "suggestion": "Fix issue 39."
+          },
+          "recommendationId": "rec:rule.item-39"
+        },
+        {
+          "rank": 45,
+          "priority": 35.5,
+          "reason": "severity=info (5), category=accuracy (weight=0.9)",
+          "issue": {
+            "id": "iss-9",
+            "ruleId": "rule.item-9",
+            "severity": "info",
+            "category": "accuracy",
+            "title": "Issue 9",
+            "description": "Description for issue 9.",
+            "suggestion": "Fix issue 9."
+          },
+          "recommendationId": "rec:rule.item-9"
+        },
+        {
+          "rank": 46,
+          "priority": 33,
+          "reason": "severity=info (5), category=compliance (weight=0.8)",
+          "issue": {
+            "id": "iss-29",
+            "ruleId": "rule.item-29",
+            "severity": "info",
+            "category": "compliance",
+            "title": "Issue 29",
+            "description": "Description for issue 29.",
+            "suggestion": "Fix issue 29."
+          },
+          "recommendationId": "rec:rule.item-29"
+        },
+        {
+          "rank": 47,
+          "priority": 30.5,
+          "reason": "severity=info (5), category=consistency (weight=0.7)",
+          "issue": {
+            "id": "iss-34",
+            "ruleId": "rule.item-34",
+            "severity": "info",
+            "category": "consistency",
+            "title": "Issue 34",
+            "description": "Description for issue 34.",
+            "suggestion": "Fix issue 34."
+          },
+          "recommendationId": "rec:rule.item-34"
+        },
+        {
+          "rank": 48,
+          "priority": 30.5,
+          "reason": "severity=info (5), category=consistency (weight=0.7)",
+          "issue": {
+            "id": "iss-4",
+            "ruleId": "rule.item-4",
+            "severity": "info",
+            "category": "consistency",
+            "title": "Issue 4",
+            "description": "Description for issue 4.",
+            "suggestion": "Fix issue 4."
+          },
+          "recommendationId": "rec:rule.item-4"
+        },
+        {
+          "rank": 49,
+          "priority": 28,
+          "reason": "severity=info (5), category=clarity (weight=0.6)",
+          "issue": {
+            "id": "iss-14",
+            "ruleId": "rule.item-14",
+            "severity": "info",
+            "category": "clarity",
+            "title": "Issue 14",
+            "description": "Description for issue 14.",
+            "suggestion": "Fix issue 14."
+          },
+          "recommendationId": "rec:rule.item-14"
+        },
+        {
+          "rank": 50,
+          "priority": 28,
+          "reason": "severity=info (5), category=clarity (weight=0.6)",
+          "issue": {
+            "id": "iss-44",
+            "ruleId": "rule.item-44",
+            "severity": "info",
+            "category": "clarity",
+            "title": "Issue 44",
+            "description": "Description for issue 44.",
+            "suggestion": "Fix issue 44."
+          },
+          "recommendationId": "rec:rule.item-44"
+        }
+      ],
+      "prioritySummary": {
+        "total": 50,
+        "bySeverity": {
+          "critical": 10,
+          "high": 10,
+          "medium": 10,
+          "low": 10,
+          "info": 10
+        },
+        "byCategory": {
+          "completeness": 9,
+          "structure": 9,
+          "accuracy": 8,
+          "compliance": 8,
+          "consistency": 8,
+          "clarity": 8
+        },
+        "topPriority": 95
+      }
+    }
+  ],
+  "aggregate": {
+    "documentCount": 1,
+    "totalIssues": 50,
+    "averageScore": 45
+  }
+}"
+`;
+
+exports[`JSON Reporter Snapshots > matches snapshot for small project 1`] = `
+"{
+  "schemaVersion": "1.0",
+  "generator": {
+    "name": "docaudit",
+    "version": "0.1.0"
+  },
+  "generatedAt": "2026-01-01T00:00:00.000Z",
+  "documents": [
+    {
+      "documentId": "doc-1",
+      "documentName": "README.md",
+      "analyzedAt": "2026-01-01T00:00:00.000Z",
+      "durationMs": 5.5,
+      "score": {
+        "overall": 78,
+        "categories": [],
+        "grade": "C"
+      },
+      "summary": {
+        "totalIssues": 2,
+        "criticalCount": 0,
+        "highCount": 1,
+        "mediumCount": 1,
+        "lowCount": 0,
+        "infoCount": 0
+      },
+      "issues": [
+        {
+          "id": "iss-1",
+          "ruleId": "structure.missing-h1",
+          "severity": "high",
+          "category": "structure",
+          "title": "Missing H1 heading",
+          "description": "Document does not start with an H1 heading.",
+          "suggestion": "Add an H1 heading at the top of the document.",
+          "location": {
+            "line": 1
+          }
+        },
+        {
+          "id": "iss-2",
+          "ruleId": "clarity.placeholder-text",
+          "severity": "medium",
+          "category": "clarity",
+          "title": "Placeholder text detected",
+          "description": "Document contains TODO placeholder.",
+          "suggestion": "Replace placeholder with real content.",
+          "location": {
+            "line": 12
+          }
+        }
+      ],
+      "recommendations": [
+        {
+          "id": "rec:structure.missing-h1",
+          "title": "Missing H1 heading",
+          "severity": "high",
+          "category": "structure",
+          "priority": 75,
+          "context": "A single H1 heading serves as the document title. Search engines and screen readers rely on a clear H1.",
+          "action": "Add an H1 heading at the top of the document.",
+          "hasTemplate": false,
+          "relatedIssueIds": [
+            "iss-1"
+          ]
+        },
+        {
+          "id": "rec:clarity.placeholder-text",
+          "title": "Placeholder text detected",
+          "severity": "medium",
+          "category": "clarity",
+          "priority": 50,
+          "context": "Placeholder text (TODO/FIXME/TBD/WIP) in published docs signals incompleteness and erodes reader trust.",
+          "action": "Replace placeholder with real content.",
+          "hasTemplate": false,
+          "relatedIssueIds": [
+            "iss-2"
+          ]
+        }
+      ],
+      "prioritized": [
+        {
+          "rank": 1,
+          "priority": 77.5,
+          "reason": "severity=high (75), category=structure (weight=0.9)",
+          "issue": {
+            "id": "iss-1",
+            "ruleId": "structure.missing-h1",
+            "severity": "high",
+            "category": "structure",
+            "title": "Missing H1 heading",
+            "description": "Document does not start with an H1 heading.",
+            "suggestion": "Add an H1 heading at the top of the document.",
+            "location": {
+              "line": 1
+            }
+          },
+          "recommendationId": "rec:structure.missing-h1"
+        },
+        {
+          "rank": 2,
+          "priority": 55,
+          "reason": "severity=medium (50), category=clarity (weight=0.6)",
+          "issue": {
+            "id": "iss-2",
+            "ruleId": "clarity.placeholder-text",
+            "severity": "medium",
+            "category": "clarity",
+            "title": "Placeholder text detected",
+            "description": "Document contains TODO placeholder.",
+            "suggestion": "Replace placeholder with real content.",
+            "location": {
+              "line": 12
+            }
+          },
+          "recommendationId": "rec:clarity.placeholder-text"
+        }
+      ],
+      "prioritySummary": {
+        "total": 2,
+        "bySeverity": {
+          "critical": 0,
+          "high": 1,
+          "medium": 1,
+          "low": 0,
+          "info": 0
+        },
+        "byCategory": {
+          "structure": 1,
+          "clarity": 1
+        },
+        "topPriority": 77.5
+      }
+    }
+  ],
+  "aggregate": {
+    "documentCount": 1,
+    "totalIssues": 2,
+    "averageScore": 78
+  }
+}"
+`;
+
+exports[`JSON Reporter Snapshots > multi-document report matches snapshot 1`] = `
+"{
+  "schemaVersion": "1.0",
+  "generator": {
+    "name": "docaudit",
+    "version": "0.1.0"
+  },
+  "generatedAt": "2026-01-01T00:00:00.000Z",
+  "documents": [
+    {
+      "documentId": "doc-1",
+      "documentName": "test.md",
+      "analyzedAt": "2026-01-01T00:00:00.000Z",
+      "durationMs": 12.34,
+      "score": {
+        "overall": 100,
+        "categories": [],
+        "grade": "A"
+      },
+      "summary": {
+        "totalIssues": 0,
+        "criticalCount": 0,
+        "highCount": 0,
+        "mediumCount": 0,
+        "lowCount": 0,
+        "infoCount": 0
+      },
+      "issues": [],
+      "recommendations": [],
+      "prioritized": [],
+      "prioritySummary": {
+        "total": 0,
+        "bySeverity": {
+          "critical": 0,
+          "high": 0,
+          "medium": 0,
+          "low": 0,
+          "info": 0
+        },
+        "byCategory": {},
+        "topPriority": 0
+      }
+    },
+    {
+      "documentId": "doc-1",
+      "documentName": "README.md",
+      "analyzedAt": "2026-01-01T00:00:00.000Z",
+      "durationMs": 5.5,
+      "score": {
+        "overall": 78,
+        "categories": [],
+        "grade": "C"
+      },
+      "summary": {
+        "totalIssues": 2,
+        "criticalCount": 0,
+        "highCount": 1,
+        "mediumCount": 1,
+        "lowCount": 0,
+        "infoCount": 0
+      },
+      "issues": [
+        {
+          "id": "iss-1",
+          "ruleId": "structure.missing-h1",
+          "severity": "high",
+          "category": "structure",
+          "title": "Missing H1 heading",
+          "description": "Document does not start with an H1 heading.",
+          "suggestion": "Add an H1 heading at the top of the document.",
+          "location": {
+            "line": 1
+          }
+        },
+        {
+          "id": "iss-2",
+          "ruleId": "clarity.placeholder-text",
+          "severity": "medium",
+          "category": "clarity",
+          "title": "Placeholder text detected",
+          "description": "Document contains TODO placeholder.",
+          "suggestion": "Replace placeholder with real content.",
+          "location": {
+            "line": 12
+          }
+        }
+      ],
+      "recommendations": [
+        {
+          "id": "rec:structure.missing-h1",
+          "title": "Missing H1 heading",
+          "severity": "high",
+          "category": "structure",
+          "priority": 75,
+          "context": "A single H1 heading serves as the document title. Search engines and screen readers rely on a clear H1.",
+          "action": "Add an H1 heading at the top of the document.",
+          "hasTemplate": false,
+          "relatedIssueIds": [
+            "iss-1"
+          ]
+        },
+        {
+          "id": "rec:clarity.placeholder-text",
+          "title": "Placeholder text detected",
+          "severity": "medium",
+          "category": "clarity",
+          "priority": 50,
+          "context": "Placeholder text (TODO/FIXME/TBD/WIP) in published docs signals incompleteness and erodes reader trust.",
+          "action": "Replace placeholder with real content.",
+          "hasTemplate": false,
+          "relatedIssueIds": [
+            "iss-2"
+          ]
+        }
+      ],
+      "prioritized": [
+        {
+          "rank": 1,
+          "priority": 77.5,
+          "reason": "severity=high (75), category=structure (weight=0.9)",
+          "issue": {
+            "id": "iss-1",
+            "ruleId": "structure.missing-h1",
+            "severity": "high",
+            "category": "structure",
+            "title": "Missing H1 heading",
+            "description": "Document does not start with an H1 heading.",
+            "suggestion": "Add an H1 heading at the top of the document.",
+            "location": {
+              "line": 1
+            }
+          },
+          "recommendationId": "rec:structure.missing-h1"
+        },
+        {
+          "rank": 2,
+          "priority": 55,
+          "reason": "severity=medium (50), category=clarity (weight=0.6)",
+          "issue": {
+            "id": "iss-2",
+            "ruleId": "clarity.placeholder-text",
+            "severity": "medium",
+            "category": "clarity",
+            "title": "Placeholder text detected",
+            "description": "Document contains TODO placeholder.",
+            "suggestion": "Replace placeholder with real content.",
+            "location": {
+              "line": 12
+            }
+          },
+          "recommendationId": "rec:clarity.placeholder-text"
+        }
+      ],
+      "prioritySummary": {
+        "total": 2,
+        "bySeverity": {
+          "critical": 0,
+          "high": 1,
+          "medium": 1,
+          "low": 0,
+          "info": 0
+        },
+        "byCategory": {
+          "structure": 1,
+          "clarity": 1
+        },
+        "topPriority": 77.5
+      }
+    }
+  ],
+  "aggregate": {
+    "documentCount": 2,
+    "totalIssues": 2,
+    "averageScore": 89
+  }
+}"
+`;
