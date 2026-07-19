@@ -13,6 +13,22 @@ export { computeHealthScore } from "./scoring/healthScore.js";
 export { generateRecommendations } from "./recommendations/recommendationEngine.js";
 export type { Recommendation } from "./recommendations/recommendationEngine.js";
 
+// Priority
+export {
+  prioritize,
+  calculatePriority,
+  explainPriority,
+  SEVERITY_PRIORITY,
+  CATEGORY_WEIGHT,
+  DEFAULT_WEIGHTS,
+} from "./priority/index.js";
+export type {
+  PrioritizedFinding,
+  PrioritizedResult,
+  PrioritySummary,
+  PriorityWeights,
+} from "./priority/index.js";
+
 // Discovery
 export { discoverFiles } from "./discovery/discoverFiles.js";
 export type { DiscoveryOptions } from "./discovery/discoverFiles.js";
@@ -21,7 +37,7 @@ export { loadIgnorePatterns, isIgnored } from "./discovery/ignorePatterns.js";
 // Registry
 export { AnalyzerRegistryImpl } from "./registry/analyzerRegistry.js";
 
-// Analyzers
+// Built-in Analyzers
 export { PlaceholderAnalyzer } from "./analyzers/placeholderAnalyzer.js";
 export { StructureAnalyzer } from "./analyzers/structureAnalyzer.js";
 export { CompletenessAnalyzer } from "./analyzers/completenessAnalyzer.js";
